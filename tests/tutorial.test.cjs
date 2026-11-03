@@ -75,3 +75,11 @@ test("center pane remains scrollable and keyboard-accessible without a scrollbar
   assert.match(html, /\.main-content::-webkit-scrollbar\s*\{\s*display: none;/);
   assert.match(html, /<main class="main-content" tabindex="0" aria-label="Tutorial lessons">/);
 });
+
+test("documentation layout fits below the fixed header without outer overflow", () => {
+  assert.match(html, /body\.docs-active\s*\{\s*overflow: hidden;/);
+  const layout = html.match(/^      \.docs-layout-container\s*\{([^}]+)\}/m)[1];
+  assert.match(layout, /position: fixed;/);
+  assert.match(layout, /inset: var\(--header-height\) 0 0;/);
+  assert.doesNotMatch(layout, /margin-top:|100vh/);
+});
