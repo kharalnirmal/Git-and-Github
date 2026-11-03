@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="340" viewBox="0 0 800 340" role="img" aria-labelledby="title desc">
+  <title id="title">Example 24-hour hackathon schedule</title>
+  <desc id="desc">Hours zero to two: agree on the problem. Two to six: build one complete user journey. Six to sixteen: develop small tasks and integrate. Sixteen to twenty: test and stop adding features. Twenty to twenty-four: rehearse and submit early. Adjust for the event rules and team needs.</desc>
+  <rect width="800" height="340" rx="12" fill="#101827"/>
+  <g font-family="Arial, sans-serif" fill="#f1f5f9">
+    <text x="32" y="43" font-size="23" font-weight="700">Protect time for integration and the demo</text>
+    <text x="32" y="71" font-size="15" fill="#cbd5e1">Example only: adapt this to the event, your team, and time for rest.</text>
+    <path d="M70 135H730" stroke="#60a5fa" stroke-width="4"/>
+    <g fill="#fb923c"><circle cx="70" cy="135" r="8"/><circle cx="235" cy="135" r="8"/><circle cx="400" cy="135" r="8"/><circle cx="565" cy="135" r="8"/><circle cx="730" cy="135" r="8"/></g>
+    <g text-anchor="middle" font-size="17" font-weight="700">
+      <text x="70" y="111">0–2h</text><text x="235" y="111">2–6h</text><text x="400" y="111">6–16h</text><text x="565" y="111">16–20h</text><text x="730" y="111">20–24h</text>
+      <text x="70" y="178">Plan</text><text x="235" y="178">First slice</text><text x="400" y="178">Build</text><text x="565" y="178">Stabilize</text><text x="730" y="178">Submit</text>
+    </g>
+    <g font-size="14" text-anchor="middle" fill="#cbd5e1">
+      <text x="70" y="206">One user</text><text x="70" y="228">One problem</text>
+      <text x="235" y="206">End-to-end path</text><text x="235" y="228">Deploy early</text>
+      <text x="400" y="206">Small issues</text><text x="400" y="228">Frequent merges</text>
+      <text x="565" y="206">Test + fix</text><text x="565" y="228">Freeze scope</text>
+      <text x="730" y="206">Demo + backup</text><text x="730" y="228">Verify links</text>
+    </g>
+    <text x="32" y="294" font-size="15" fill="#cbd5e1">If you fall behind: cut optional features, not testing, rest, or submission time.</text>
+  </g>
+</svg>

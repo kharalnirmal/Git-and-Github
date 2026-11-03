@@ -1,0 +1,73 @@
+/* Practical learning paths extend the original theme without a build step. */
+.lesson-kicker {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 12px;
+}
+.lesson-goal, .lesson-task {
+  padding: 20px;
+  margin: 24px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-secondary);
+}
+.lesson-goal p:last-child, .lesson-task p:last-child,
+.lesson-task ol:last-child { margin-bottom: 0; }
+.lesson-goal strong, .lesson-task strong { color: var(--text-primary); }
+.workflow-figure { margin: 28px 0; }
+.workflow-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: #101827;
+}
+.workflow-figure figcaption {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+.board-example {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0;
+}
+.board-column {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 14px;
+  background: var(--bg-secondary);
+}
+.board-column h3 { margin: 0 0 14px; font-size: 15px; }
+.board-card {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--card-bg);
+}
+.board-card p { margin: 0 0 8px; font-size: 13px; }
+.board-card small { color: var(--text-secondary); }
+.lesson-table { overflow-x: auto; margin: 24px 0; }
+.lesson-table table { margin: 0; min-width: 540px; }
+.lesson-table th { white-space: nowrap; }
+.lesson-table td { vertical-align: top; }
+.page .lesson-sources { font-size: 13px; margin-top: 28px; }
+.page a.lesson-link, .lesson-sources a { color: var(--accent); text-underline-offset: 3px; }
+.page-nav button { font-family: inherit; max-width: 50%; }
+.page-nav-btn-title { overflow-wrap: anywhere; }
+.lesson-checklist { list-style: none; margin-left: 0; }
+.lesson-checklist li::before { content: "□ "; color: var(--accent); font-weight: 700; }
+@media (max-width: 600px) {
+  .board-example { grid-template-columns: 1fr; }
+  .page-nav button { min-width: 0; padding: 12px; }
+  .lesson-goal, .lesson-task { padding: 16px; }
+}
+@media (max-width: 480px) {
+  .page-nav button { max-width: 100%; }
+}

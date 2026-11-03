@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="390" viewBox="0 0 800 390" role="img" aria-labelledby="title desc">
+  <title id="title">How issues, Projects, milestones, and pull requests connect</title>
+  <desc id="desc">Issue 12 describes one task. A Project tracks its status and owner. Milestone v0.2 groups it with related work. Pull request 18 implements the task and closes issue 12 when merged into the default branch.</desc>
+  <rect width="800" height="390" rx="12" fill="#101827"/>
+  <g font-family="Arial, sans-serif" fill="#f1f5f9">
+    <text x="32" y="43" font-size="23" font-weight="700">Four tools, four different questions</text>
+    <g fill="#1e293b" stroke="#60a5fa" stroke-width="2">
+      <rect x="32" y="80" width="350" height="115" rx="10"/><rect x="418" y="80" width="350" height="115" rx="10"/>
+      <rect x="32" y="225" width="350" height="115" rx="10"/><rect x="418" y="225" width="350" height="115" rx="10"/>
+    </g>
+    <g font-size="19" font-weight="700">
+      <text x="52" y="113">Issue: what needs doing?</text><text x="438" y="113">Project: who is doing what?</text>
+      <text x="52" y="258">Milestone: what ships together?</text><text x="438" y="258">Pull request: what changed?</text>
+    </g>
+    <g font-size="15" fill="#cbd5e1">
+      <text x="52" y="145">#12 Reject empty mission titles</text><text x="52" y="172">Steps, expected result, acceptance criteria</text>
+      <text x="438" y="145">Mission Tracker board</text><text x="438" y="172">#12 • In progress • Sakura • High priority</text>
+      <text x="52" y="290">v0.2: reliable mission creation</text><text x="52" y="317">Groups #12, #13, #14 in this repository</text>
+      <text x="438" y="290">#18 Add title validation and tests</text><text x="438" y="317">Description: Closes #12</text>
+    </g>
+    <path d="M385 137h28m-7-6 7 6-7 6M207 199v21m-6-6 6 6 6-6M593 221v-21m-6 6 6-6 6 6" fill="none" stroke="#fb923c" stroke-width="3"/>
+    <text x="32" y="370" font-size="14" fill="#cbd5e1">A Project can span repositories. A milestone belongs to one repository.</text>
+  </g>
+</svg>

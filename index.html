@@ -17,6 +17,7 @@
 
     <!-- Lucide icons CDN -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="assets/css/learning-paths.css" />
 
     <style>
       * {
@@ -1722,14 +1723,14 @@
 
           <p class="landing-desc">
             Follow Naruto, Sasuke &amp; Sakura as they build a Ninja Mission
-            Tracker — learn branches, merges, conflicts, and GitHub
-            collaboration along the way.
+            Tracker. Learn Git from your first commit to production workflows,
+            open source contributions, and collaborative hackathons.
           </p>
 
           <div class="landing-features">
             <div class="feature-card topics">
               <div class="feature-icon"><i data-lucide="library"></i></div>
-              <strong>20+</strong>
+              <strong>36</strong>
               <span>Topics</span>
             </div>
             <div class="feature-card free">
@@ -1755,8 +1756,11 @@
               ><i data-lucide="github"></i> GitHub</span
             >
             <span class="landing-chip"
-              ><i data-lucide="shield-check"></i> Pull Requests</span
+               ><i data-lucide="shield-check"></i> Pull Requests</span
             >
+            <span class="landing-chip"><i data-lucide="kanban"></i> Production</span>
+            <span class="landing-chip"><i data-lucide="heart-handshake"></i> Open Source</span>
+            <span class="landing-chip"><i data-lucide="timer"></i> Hackathons</span>
           </div>
 
           <div class="landing-actions">
@@ -2099,7 +2103,7 @@
           </div>
 
           <div class="nav-section">
-            <div class="nav-section-title">Advanced Topics</div>
+            <div class="nav-section-title">Advanced Section: Git</div>
             <div class="nav-section-links">
               <a class="nav-link" onclick="showPage('stash')">
                 <i data-lucide="archive"></i> Git Stash
@@ -2111,8 +2115,40 @@
           </div>
 
           <div class="nav-section">
+            <div class="nav-section-title">Advanced Section: Production</div>
+            <div class="nav-section-links">
+              <a class="nav-link" onclick="showPage('production-workflow')"><i data-lucide="workflow"></i> The Real Team Workflow</a>
+              <a class="nav-link" onclick="showPage('issues')"><i data-lucide="circle-dot"></i> Writing Useful Issues</a>
+              <a class="nav-link" onclick="showPage('projects-milestones')"><i data-lucide="kanban"></i> Projects &amp; Milestones</a>
+              <a class="nav-link" onclick="showPage('repo-structure')"><i data-lucide="folder-tree"></i> A Production-Ready Repo</a>
+              <a class="nav-link" onclick="showPage('reviews-checks')"><i data-lucide="shield-check"></i> Reviews &amp; Automated Checks</a>
+              <a class="nav-link" onclick="showPage('releases-recovery')"><i data-lucide="package-check"></i> Releases &amp; Recovery</a>
+            </div>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Open Source</div>
+            <div class="nav-section-links">
+              <a class="nav-link" onclick="showPage('finding-projects')"><i data-lucide="search"></i> Find Your First Project</a>
+              <a class="nav-link" onclick="showPage('first-contribution')"><i data-lucide="git-pull-request"></i> Your First Contribution</a>
+              <a class="nav-link" onclick="showPage('maintaining-open-source')"><i data-lucide="users"></i> Grow into a Maintainer</a>
+              <a class="nav-link" onclick="showPage('hacktoberfest')"><i data-lucide="heart-handshake"></i> Prepare for Hacktoberfest</a>
+            </div>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Hackathons</div>
+            <div class="nav-section-links">
+              <a class="nav-link" onclick="showPage('hackathon-plan')"><i data-lucide="target"></i> Setup &amp; Priorities</a>
+              <a class="nav-link" onclick="showPage('hackathon-team')"><i data-lucide="users"></i> Collaborate Under Pressure</a>
+              <a class="nav-link" onclick="showPage('hackathon-submit')"><i data-lucide="presentation"></i> Demo &amp; Judge-Ready Repo</a>
+            </div>
+          </div>
+
+          <div class="nav-section">
             <div class="nav-section-title">Practice</div>
             <div class="nav-section-links">
+              <a class="nav-link" onclick="showPage('workflow-practice')"><i data-lucide="wrench"></i> Real-World Problem Lab</a>
               <a class="nav-link" onclick="showPage('cheatsheet')">
                 <i data-lucide="file-text"></i> Command Cheatsheet
               </a>
@@ -10277,6 +10313,608 @@ feature:                  D' --- E'
             </div>
           </div>
 
+          <!-- PRACTICAL PATH: PRODUCTION -->
+          <div class="page" id="page-production-workflow">
+            <p class="lesson-kicker">Advanced section / Production / 1</p>
+            <h1>The Real Team Workflow</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> understand how a team turns a real problem into a small, reviewed, released improvement. Advanced means working responsibly with others, not memorizing more flags.</p></div>
+            <h2 id="production-why">Why build a project together?</h2>
+            <p>A useful project solves a problem for someone. Our Ninja Mission Tracker helps a team create and follow missions. Building it together teaches something isolated command exercises cannot: how to agree on work, avoid duplicating effort, explain decisions, and keep a working product available.</p>
+            <p><strong>A software project</strong> is the product and the work around it. <strong>GitHub Projects</strong> is a planning tool for organizing that work. They are related, but creating a board does not create or deploy an application.</p>
+            <h2 id="production-cycle">Follow one change through the team</h2>
+            <figure class="workflow-figure"><img src="assets/images/workflows/production-cycle.svg" width="800" height="390" alt="Issue, planning, branch and pull request, review and checks, deployment, and monitoring form a feedback loop." loading="lazy" /><figcaption>One focused change is easier to understand, review, test, and recover than a large collection of unrelated edits. <a class="lesson-link" href="assets/images/workflows/production-cycle.svg" target="_blank" rel="noopener">Open full-size diagram</a>.</figcaption></figure>
+            <ol>
+              <li><strong>Discover:</strong> Naruto notices that users can save a mission with an empty title.</li>
+              <li><strong>Describe:</strong> he opens issue #12 with steps to reproduce and a clear expected result.</li>
+              <li><strong>Plan:</strong> Sakura takes ownership, adds it to the team board, and includes it in milestone v0.2.</li>
+              <li><strong>Build:</strong> Sakura creates a short-lived branch, adds validation, and writes a test.</li>
+              <li><strong>Review:</strong> her pull request explains the fix. Sasuke reviews it and automated checks run.</li>
+              <li><strong>Deliver:</strong> after approval and passing checks, the team merges, releases, and deploys using its agreed process.</li>
+              <li><strong>Verify:</strong> Naruto checks the deployed application. If something is wrong, the team fixes or rolls back the release and records what happened.</li>
+            </ol>
+            <h2 id="production-branch">The simplest useful branching approach</h2>
+            <p>Start with a stable <code>main</code> branch and one branch per small task. Use pull requests instead of pushing unfinished work directly to main. Large teams may need other approaches, but a permanent branch for every environment is not a requirement.</p>
+            <div class="diagram"><pre># Start with a clean working directory. Review git status first.
+git status
+git checkout main
+git pull
+git checkout -b fix/12-empty-mission
+
+# Edit the relevant files and run the project's documented tests.
+git diff
+git add src/missions.js tests/missions.test.js
+git commit -m "Reject empty mission titles"
+git push -u origin fix/12-empty-mission</pre></div>
+            <p>The file paths above are examples, not files supplied by this tutorial. Stage the files you actually changed. <code>-b</code> creates the branch, <code>-m</code> supplies the commit message, and <code>-u</code> remembers where this branch is pushed. Open the pull request on GitHub next.</p>
+            <h2 id="production-problems">Problems you will meet</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>Resolve it</th><th>Prevent a repeat</th></tr></thead><tbody>
+              <tr><td>Two people implement the same task.</td><td>Compare work, choose one owner, and reuse the useful parts with credit.</td><td>Assign an issue and announce that work has started.</td></tr>
+              <tr><td>A branch contains several unrelated features.</td><td>Agree with the reviewer how to split it into focused changes.</td><td>Use one issue and one small goal per branch.</td></tr>
+              <tr><td>The PR is merged but users cannot see the fix.</td><td>Check which version was deployed and whether deployment succeeded.</td><td>Track deployment separately from merge status.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> choose a tiny improvement to a project you own. Write its user problem, who will implement it, who will review it, and how you will know it works after release.</p></div>
+            <div class="page-nav"></div>
+          </div>
+
+          <div class="page" id="page-issues">
+            <p class="lesson-kicker">Advanced section / Production / 2</p>
+            <h1>Writing Useful Issues</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> make work understandable before anyone starts coding. An issue is a shared record of a bug, proposed improvement, or task, not just a reminder in one person's head.</p></div>
+            <h2 id="issues-why">Why not just send a message?</h2>
+            <p>Chat is useful for quick conversation, but decisions disappear in the scroll. An issue keeps the problem, discussion, owner, and related pull request in one place. You can find the reasoning months later. Tiny fixes do not always need an issue; follow the project's contribution rules.</p>
+            <h2 id="issues-create">Create an issue step by step</h2>
+            <ol>
+              <li>Search existing open and closed issues first. Your bug may already be reported or fixed.</li>
+              <li>Open the repository's <strong>Issues</strong> tab, select <strong>New issue</strong>, and use the relevant template.</li>
+              <li>Write a specific title, such as “Empty mission title is accepted,” instead of “App broken.”</li>
+              <li>Describe the steps, expected result, actual result, and relevant environment. Add a screenshot or a small, sanitized log if useful.</li>
+              <li>Add acceptance criteria: observable outcomes that tell a reviewer when the task is complete.</li>
+              <li>If you have permission, add an appropriate label, owner, milestone, and Project. Otherwise, ask the maintainer rather than assuming you can assign yourself.</li>
+            </ol>
+            <h2 id="issues-example">A bug report someone can act on</h2>
+            <div class="diagram"><pre>Title: Empty mission title is accepted
+
+Problem: A blank mission appears in the list and cannot be identified.
+Steps:
+1. Open the Create Mission form.
+2. Leave the title empty or enter only spaces.
+3. Press Save.
+Expected: Show a helpful message and do not create a mission.
+Actual: A blank mission is saved.
+Environment: Browser and app version where the bug was observed.
+
+Acceptance criteria:
+- Empty and whitespace-only titles are rejected.
+- The user sees a clear validation message.
+- Valid titles still save successfully.
+- Tests cover the invalid and valid cases.</pre></div>
+            <p>For a feature, explain <strong>who needs it and why</strong> before proposing how to build it. For a large task, create smaller linked issues such as “validate input,” “show the message,” and “add tests.” Record dependencies so work does not start before its prerequisites are ready.</p>
+            <h2 id="issues-triage">Triage and follow through</h2>
+            <p><strong>Triage</strong> means checking a new issue and deciding what should happen next. Confirm the problem, request missing information, label it, decide its priority, and assign it when someone is ready. A bug can be urgent without being a large task. Severity describes impact; priority describes when the team will address it.</p>
+            <p>When the fix is complete, include <code>Closes #12</code> in the PR description. For an issue in the same repository, GitHub closes it when that PR is merged into the repository's default branch. Merely mentioning #12 or pushing a branch does not close it. Use “Related to #12” if the PR only does part of the work.</p>
+            <h2 id="issues-problems">When issue management goes wrong</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>How to resolve it</th></tr></thead><tbody>
+              <tr><td>A report cannot be reproduced.</td><td>Ask for exact steps and the version. Try a clean environment and record what you tested. Do not dismiss it just because your machine works.</td></tr>
+              <tr><td>There are duplicate issues.</td><td>Link the original, move any new useful evidence there, and close the duplicate with an explanation.</td></tr>
+              <tr><td>The task keeps growing.</td><td>Agree on the original acceptance criteria and open follow-up issues for new ideas.</td></tr>
+              <tr><td>A contributor is blocked or disappears.</td><td>Ask politely for a status update. Agree on a handover and release ownership if necessary; avoid silent reassignment.</td></tr>
+              <tr><td>A report contains a security vulnerability.</td><td>Use the repository's private security reporting process. Do not publish exploit details, credentials, or user data in a public issue.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> write an issue for a broken link in your own repository. Include the exact page, destination, expected behavior, and a way to verify the fix.</p></div>
+            <p class="lesson-sources">Official reference: <a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue">Linking a pull request to an issue</a>.</p>
+            <div class="page-nav"></div>
+          </div>
+
+          <div class="page" id="page-projects-milestones">
+            <p class="lesson-kicker">Advanced section / Production / 3</p>
+            <h1>Projects &amp; Milestones</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> answer “What are we building next, who owns it, and what is blocking delivery?” without adding unnecessary process.</p></div>
+            <h2 id="planning-difference">Issue, Project, milestone: what is the difference?</h2>
+            <figure class="workflow-figure"><img src="assets/images/workflows/planning-map.svg" width="800" height="390" alt="Issue 12 describes a task, a Project tracks its status, milestone v0.2 groups release work, and PR 18 implements the fix." loading="lazy" /><figcaption>A board organizes work. A milestone groups a delivery goal. A pull request proposes the actual changes. <a class="lesson-link" href="assets/images/workflows/planning-map.svg" target="_blank" rel="noopener">Open full-size diagram</a>.</figcaption></figure>
+            <p>A <strong>Project</strong> is a flexible board, table, or roadmap owned by a user or organization. It can track issues and pull requests from multiple repositories. A <strong>milestone</strong> belongs to one repository and groups issues or PRs around a goal, often a release or deadline. Neither tool is compulsory for a small personal task.</p>
+            <h2 id="planning-project">Create a useful GitHub Project</h2>
+            <ol>
+              <li>Go to your profile or organization, open <strong>Projects</strong>, and create a new project. Choose a board layout and name it “Mission Tracker.” GitHub's labels may change over time.</li>
+              <li>Keep the status field small: <strong>Todo → In progress → In review → Done</strong>. Add a Backlog status only if you need a place for ideas not yet committed.</li>
+              <li>Add existing repository issues using the project's Add item control or the issue's Projects field. A draft item is a planning note; convert it to a repository issue when you need normal issue discussion and tracking.</li>
+              <li>Use assignees for ownership and, if needed, a simple Priority field such as High, Medium, Low. Do not add fields nobody uses.</li>
+              <li>At each check-in, update status and record blockers on the issue. Keep only a small amount of work in progress.</li>
+            </ol>
+            <div class="board-example" role="group" aria-label="Illustrative Project board, not interactive">
+              <section class="board-column"><h3>Todo</h3><div class="board-card"><p><strong>#13 Improve error message</strong></p><small>Naruto · Medium priority</small></div></section>
+              <section class="board-column"><h3>In progress</h3><div class="board-card"><p><strong>#12 Reject empty titles</strong></p><small>Sakura · High priority</small></div></section>
+              <section class="board-column"><h3>In review</h3><div class="board-card"><p><strong>#14 Add form tests</strong></p><small>Sasuke · PR ready</small></div></section>
+            </div>
+            <p>This illustration omits Done for space. In your real board, define Done explicitly: for example, merged with checks passing. Track “deployed and verified” separately if that is your release requirement.</p>
+            <h2 id="planning-milestone">Create and use a milestone</h2>
+            <ol>
+              <li>In the repository's <strong>Issues</strong> area, open <strong>Milestones</strong> and create one named “v0.2: reliable mission creation.”</li>
+              <li>Describe the outcome and add a realistic due date if one is useful.</li>
+              <li>Set that milestone on issues #12, #13, and #14 using their sidebar fields. These are example issue numbers, not existing tasks in this tutorial.</li>
+              <li>Review open work before the deadline. If a task is not essential, move it to a later milestone and explain the decision.</li>
+              <li>After verifying the agreed scope, close the milestone. Create the release separately; closing a milestone does not publish software.</li>
+            </ol>
+            <h2 id="planning-production">How this helps in production</h2>
+            <p>A support report becomes an issue. That issue enters a team's Project, receives an owner, and joins the next release milestone. Its PR links back to the issue. When the fix merges into the default branch, the issue can close and milestone progress updates. The deployment still needs verification. This creates a traceable path from a customer problem to a shipped fix.</p>
+            <h2 id="planning-problems">Common planning traps</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>Resolution and prevention</th></tr></thead><tbody>
+              <tr><td>The board disagrees with reality.</td><td>Correct stale statuses during check-in. Enable suitable built-in Project workflows if helpful; do not assume dragging an item to Done closes its issue.</td></tr>
+              <tr><td>The milestone says 90% but delivery is risky.</td><td>Inspect the remaining tasks and dependencies. Completion is based on item counts, not effort or production readiness.</td></tr>
+              <tr><td>Everything is high priority.</td><td>Rank work by user impact, urgency, and dependencies. Choose a small next batch; explicitly postpone the rest.</td></tr>
+              <tr><td>A teammate cannot see the Project.</td><td>Check Project access and repository access separately. A Project does not grant access to private repositories.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> create three small issues, add them to a Project, and group them in one milestone. Move one through the workflow and check what updates automatically and what needs your input.</p></div>
+            <p class="lesson-sources">Official references: <a href="https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects">About Projects</a> · <a href="https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/about-milestones">About milestones</a>.</p>
+            <div class="page-nav"></div>
+          </div>
+
+          <div class="page" id="page-repo-structure">
+            <p class="lesson-kicker">Advanced section / Production / 4</p>
+            <h1>A Production-Ready Repository</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> let a new teammate understand, run, test, and contribute to your project without guessing.</p></div>
+            <h2 id="structure-files">A simple folder structure</h2>
+            <p>This is an example for an application, not a mandatory layout. Keep your framework's conventions. A small static website can use fewer folders.</p>
+            <div class="diagram"><pre>mission-tracker/
+├── .github/
+│   ├── ISSUE_TEMPLATE/         # Bug and feature forms or templates
+│   ├── workflows/              # Automated checks
+│   ├── pull_request_template.md
+│   └── CODEOWNERS              # Optional review ownership
+├── src/                       # Application code
+├── tests/                     # Automated tests
+├── docs/                      # Setup, decisions, release instructions
+├── assets/                    # Images and other static files
+├── .env.example               # Placeholder values only, never real secrets
+├── .gitignore
+├── README.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+└── LICENSE                    # Choose intentionally with the owners</pre></div>
+            <h2 id="structure-docs">What each document should answer</h2>
+            <ul>
+              <li><strong>README:</strong> what the product does, who it helps, screenshots, requirements, setup, tests, demo link, and known limitations.</li>
+              <li><strong>CONTRIBUTING:</strong> how to find work, set up locally, name branches, run checks, and submit a PR.</li>
+              <li><strong>CODE_OF_CONDUCT:</strong> expected behavior and a safe way to report problems.</li>
+              <li><strong>SECURITY:</strong> supported versions and private vulnerability reporting instructions.</li>
+              <li><strong>LICENSE:</strong> the permissions and conditions for reuse. Publicly visible code is not automatically licensed for unrestricted reuse.</li>
+            </ul>
+            <h2 id="structure-templates">Make good contributions easy</h2>
+            <p>In <code>.github/ISSUE_TEMPLATE/</code>, use a bug template asking for reproduction steps and a feature template asking for the user problem. A Markdown template needs valid template metadata, or use GitHub's template editor. A PR template at <code>.github/pull_request_template.md</code> can stay short:</p>
+            <div class="diagram"><pre>## What changed and why?
+Describe the user-facing outcome.
+
+## Related issue
+Closes #ISSUE_NUMBER (only if this fully resolves it)
+
+## How was this tested?
+List commands and manual steps, plus results.
+
+## Screenshots or risks
+Show UI changes. Mention migration or deployment concerns.</pre></div>
+            <h2 id="structure-security">Keep configuration safe</h2>
+            <p>Ignore local secret files before adding credentials. Commit placeholder names in <code>.env.example</code> and explain where authorized teammates get real values. Do not put production customer data in fixtures or screenshots. Give collaborators only the access they need and enable account security such as two-factor authentication.</p>
+            <div class="warning-box"><h4>If a secret was committed</h4><p>Revoke or rotate it immediately, even if the repository is private. Removing it in a new commit or adding it to .gitignore does not remove earlier copies. Tell the responsible team, inspect usage, and coordinate history cleanup if needed. Never paste the secret into an issue while asking for help.</p></div>
+            <h2 id="structure-problems">Common repository problems</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>Fix</th></tr></thead><tbody>
+              <tr><td>“It only works on my computer.”</td><td>Document runtime versions and environment variables. Test setup from a fresh clone and commit the appropriate dependency lockfile.</td></tr>
+              <tr><td>The repository includes huge generated files.</td><td>Identify what can be rebuilt, ignore future generated output, and discuss removing tracked artifacts. Use appropriate artifact or large-file storage when necessary.</td></tr>
+              <tr><td>New contributors do not know where to start.</td><td>Document a small starter task, setup verification, and the contact or discussion channel.</td></tr>
+              <tr><td>People cannot legally reuse the project.</td><td>Discuss licensing with all relevant owners. Do not add a license on behalf of an employer or other authors without authorization.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> ask someone to follow your README from a fresh clone. Note every question they ask and improve the instructions.</p></div>
+            <p class="lesson-sources">Further reading: <a href="https://opensource.guide/starting-a-project/">Starting an open source project</a> · <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository">Removing sensitive data</a>.</p>
+            <div class="page-nav"></div>
+          </div>
+
+          <div class="page" id="page-reviews-checks">
+            <p class="lesson-kicker">Advanced section / Production / 5</p>
+            <h1>Reviews &amp; Automated Checks</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> catch mistakes before they reach users, using a helpful human review and repeatable automated checks.</p></div>
+            <h2 id="reviews-small">Prepare a reviewable pull request</h2>
+            <p>Explain the problem, the change, and how you tested it. Link the issue and show before/after screenshots for visible changes. Keep formatting-only changes separate from a bug fix when practical. Open a draft PR if you want early feedback, but say what is unfinished.</p>
+            <ul>
+              <li><strong>Author:</strong> read your own diff, remove debug output, check for secrets, and run documented tests.</li>
+              <li><strong>Reviewer:</strong> check correctness, edge cases, readability, tests, and whether the issue's acceptance criteria are met.</li>
+              <li><strong>Both:</strong> discuss the code, not the person's ability. Explain why a requested change matters and distinguish required fixes from suggestions.</li>
+            </ul>
+            <h2 id="reviews-ci">What continuous integration actually does</h2>
+            <p><strong>Continuous integration (CI)</strong> runs checks when changes are proposed or integrated. GitHub Actions can install dependencies, run tests, check formatting, and build the project. A green check means the configured checks passed, not that every possible bug has been ruled out.</p>
+            <p>Below is a minimal example for a <strong>Node.js project with a committed package-lock.json and an npm test script</strong>. It is not a workflow for this static tutorial. Other stacks need different commands.</p>
+            <div class="diagram"><pre># Example file: .github/workflows/checks.yml
+name: Checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test</pre></div>
+            <p><code>npm ci</code> installs the locked dependency versions. <code>npm test</code> runs whatever the project defines as its test script. Use a supported runtime, review third-party actions, and follow your team's policy for pinning action versions, ideally to reviewed commit hashes.</p>
+            <h2 id="reviews-protect">Protect the stable branch</h2>
+            <p>With repository admin permission, configure a branch ruleset or branch protection for the default branch. Require a pull request, appropriate approval, and the relevant passing checks. Avoid allowing force pushes to shared stable branches. Available controls depend on repository visibility and the GitHub plan.</p>
+            <p>Start checks successfully before marking them required, so you know their actual names. For a solo learning repository, a second reviewer may be unavailable; choose rules you can realistically follow. In a team, agree who can merge and how emergency changes are authorized.</p>
+            <h2 id="reviews-problems">When reviews or checks block progress</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>Resolve it</th><th>Prevent it</th></tr></thead><tbody>
+              <tr><td>A check fails.</td><td>Read the first relevant error in the Actions logs, reproduce it locally, fix it, and push to the same branch.</td><td>Run the same commands locally and document prerequisites.</td></tr>
+              <tr><td>Review takes days.</td><td>Politely ask the agreed reviewer, explain urgency, or request another authorized reviewer.</td><td>Use small PRs and agree on review expectations.</td></tr>
+              <tr><td>A required check stays pending.</td><td>Check workflow triggers, skipped jobs, approvals for fork workflows, and required-check names.</td><td>Test the rules with an ordinary PR before relying on them.</td></tr>
+              <tr><td>A fork PR cannot access secrets.</td><td>Use tests that do not need production secrets. Ask maintainers about their safe validation process.</td><td>Never expose credentials or run untrusted PR code with privileged access to bypass the restriction.</td></tr>
+              <tr><td>Tests pass but a feature breaks.</td><td>Add a regression test for the missed case and verify the real user flow.</td><td>Combine automated tests with targeted manual review.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> review a small PR with a friend. Find one edge case, explain your feedback kindly, and record the test that demonstrates the intended behavior.</p></div>
+            <p class="lesson-sources">Official references: <a href="https://docs.github.com/en/actions">GitHub Actions</a> · <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches">Protected branches</a>.</p>
+            <div class="page-nav"></div>
+          </div>
+
+          <div class="page" id="page-releases-recovery">
+            <p class="lesson-kicker">Advanced section / Production / 6</p>
+            <h1>Releases &amp; Recovery</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> know what users are running, deliver changes deliberately, and respond calmly when something breaks.</p></div>
+            <h2 id="release-terms">Merge, release, and deploy are different</h2>
+            <ul>
+              <li><strong>Merge:</strong> integrate a branch's changes into another branch.</li>
+              <li><strong>Tag:</strong> name a specific point in Git history, such as <code>v0.2.0</code>.</li>
+              <li><strong>Release:</strong> publish a version with notes and, when appropriate, downloadable artifacts.</li>
+              <li><strong>Deploy:</strong> put a version into an environment where it runs. A GitHub release does not deploy an app unless a configured process does that.</li>
+            </ul>
+            <h2 id="release-steps">A practical release checklist</h2>
+            <ol>
+              <li>Check the milestone's essential work, passing tests, open risks, and responsible release owner.</li>
+              <li>Choose the exact reviewed commit to release. Test it in a staging or preview environment when available.</li>
+              <li>In GitHub's <strong>Releases</strong> area, draft a new release, select or create its version tag at that intended commit, and review the notes.</li>
+              <li>Write what changed, what was fixed, any compatibility or migration requirements, and known limitations. Do not put secrets or private customer information in public notes.</li>
+              <li>Publish and deploy using the project's documented process. Record the version and deployment result.</li>
+              <li>Run a <strong>smoke test</strong>: a quick check of essential behavior, such as opening the app and creating a valid mission. Watch errors and support feedback.</li>
+            </ol>
+            <p>Many projects use <code>MAJOR.MINOR.PATCH</code> version numbers. A patch fixes compatible behavior, a minor version adds compatible functionality, and a major version signals incompatible changes. Follow the project's actual versioning policy; early pre-1.0 projects may have less stable interfaces.</p>
+            <h2 id="release-incident">When production breaks</h2>
+            <ol>
+              <li><strong>Assess:</strong> identify affected users and the failing journey. Notify the team and name one incident coordinator.</li>
+              <li><strong>Contain:</strong> stop further releases. Use the documented rollback or disable the affected feature if a safe switch exists.</li>
+              <li><strong>Recover:</strong> restore the last known good deployment when compatible with current data. Verify the real application afterward.</li>
+              <li><strong>Repair:</strong> fix the cause on a focused branch, add a regression test, review, and release again.</li>
+              <li><strong>Learn:</strong> document impact, timeline, cause, and a few concrete follow-up tasks without blaming individuals.</li>
+            </ol>
+            <div class="warning-box"><h4>Reverting code is not undoing the world</h4><p>A Git revert does not reverse database migrations, payments, messages, or deleted data. Follow the application's recovery runbook and consult the responsible team. Never experiment with destructive database operations in production.</p></div>
+            <h2 id="release-revert">Undo a shared code change safely</h2>
+            <p>For an ordinary non-merge commit, a revert makes a new commit that reverses its changes while preserving shared history. In a protected repository, propose it through a PR. Replace <code>BAD_COMMIT_HASH</code> with the identified commit; a merge commit needs a different, team-reviewed procedure.</p>
+            <div class="diagram"><pre># Start with a clean working directory.
+git checkout main
+git pull
+git checkout -b fix/revert-broken-change
+git revert BAD_COMMIT_HASH
+# Run the project's checks, then publish the recovery PR.
+git push -u origin fix/revert-broken-change</pre></div>
+            <p>The revert may open your configured editor for a commit message. If it conflicts and you are unsure, use <code>git revert --abort</code> to stop the operation and ask for help. Do not reset and force-push shared history as an improvised production recovery.</p>
+            <h2 id="release-problems">Other release problems</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>Resolution</th></tr></thead><tbody>
+              <tr><td>The wrong commit was deployed.</td><td>Compare the deployment's recorded revision with the intended release. Redeploy the reviewed version and make revision tracking part of the release checklist.</td></tr>
+              <tr><td>Local tests pass, production fails.</td><td>Compare configuration, runtime versions, permissions, and external services. Keep secrets out of diagnostic logs.</td></tr>
+              <tr><td>The bug returns in the next release.</td><td>Make sure the recovery fix is present in the normal development path, not only a separate emergency deployment.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> in a disposable learning repository, make an ordinary bad commit, revert it on a branch, and inspect the history. Write a short recovery checklist without deploying anything real.</p></div>
+            <p class="lesson-sources">Official reference: <a href="https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository">Managing releases</a>.</p>
+            <div class="page-nav"></div>
+          </div>
+
+          <!-- PRACTICAL PATH: OPEN SOURCE -->
+          <div class="page" id="page-finding-projects">
+            <p class="lesson-kicker">Open source / 1</p>
+            <h1>Find Your First Project</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> find a useful, welcoming task that matches your current skills. You do not need to understand an entire codebase before making a helpful contribution.</p></div>
+            <h2 id="finding-start">Start with something you use</h2>
+            <p>Choose a tool, library, documentation site, or community project you care about. Familiarity with the user experience makes it easier to notice confusing instructions and bugs. Contributions can include reproduction steps, tests, accessibility improvements, translations requested by the project, and documentation, not just new features.</p>
+            <h2 id="finding-search">Search GitHub in two stages</h2>
+            <p>First find a repository using GitHub search or Explore. For example, select the <strong>Repositories</strong> result type for:</p>
+            <div class="diagram"><pre>topic:education language:JavaScript archived:false</pre></div>
+            <p>Then find a manageable task. Select <strong>Issues</strong> results for a query like this, replacing OWNER/REPO with the repository you chose:</p>
+            <div class="diagram"><pre>repo:OWNER/REPO is:issue is:open label:"good first issue" no:assignee
+repo:OWNER/REPO is:issue is:open label:"help wanted"</pre></div>
+            <p><code>repo:</code> limits the search to one repository. <code>is:open</code> excludes closed work, <code>label:</code> matches a label, and <code>no:assignee</code> finds issues without an assigned person. Labels are helpful hints, not guarantees of difficulty or availability. Read comments to check whether someone has already started.</p>
+            <h2 id="finding-evaluate">Check the project's health before committing time</h2>
+            <ul class="lesson-checklist">
+              <li>The README explains the purpose and how to run or use it.</li>
+              <li>A license and contribution guidelines explain permissions and expectations.</li>
+              <li>Recent discussions or PRs show maintainers responding constructively. A mature, stable project may need few commits, so do not judge by commit frequency alone.</li>
+              <li>The proposed task has a clear scope and can be verified.</li>
+              <li>You can install the prerequisites and run the relevant checks.</li>
+              <li>There is no existing PR doing the same work.</li>
+            </ul>
+            <h2 id="finding-ask">Ask a focused question</h2>
+            <p>Read <code>CONTRIBUTING.md</code>, issue comments, and any linked discussions first. Then say what you checked and what you propose:</p>
+            <div class="info-box"><h4>Example message</h4><p>“I reproduced this on the documented version. I would like to add title validation and tests for empty and whitespace-only input. Is this approach suitable, and is anyone already working on it?”</p></div>
+            <p>Do not post the same request on dozens of issues. Some projects require assignment; others welcome a small PR directly. Follow the local convention.</p>
+            <h2 id="finding-problems">Common beginner roadblocks</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>What to do</th></tr></thead><tbody>
+              <tr><td>The “beginner” issue is too difficult.</td><td>Ask for a suggested entry point, investigate a smaller part, or choose a documentation or test task. Changing tasks is not failure.</td></tr>
+              <tr><td>The repository appears inactive.</td><td>Check maintainer discussions and response history. If nobody responds after the project's expected interval, move on politely.</td></tr>
+              <tr><td>Local setup fails.</td><td>Record the failing step, runtime version, and sanitized error. Search existing issues before asking a specific question.</td></tr>
+              <tr><td>You cannot find a good-first-issue label.</td><td>Look for a small reproducible problem or a documentation gap and discuss it. Not every project uses the same labels.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> shortlist two projects. For each, record the setup instructions, contribution rules, one suitable task, and the evidence that it is still available. Do not create placeholder issues just for practice.</p></div>
+            <p class="lesson-sources">Further reading: <a href="https://opensource.guide/how-to-contribute/">How to contribute to open source</a> · <a href="https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests">Searching issues and pull requests</a>.</p>
+            <div class="page-nav"></div>
+          </div>
+
+          <div class="page" id="page-first-contribution">
+            <p class="lesson-kicker">Open source / 2</p>
+            <h1>Your First Contribution</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> make a focused, tested change and work through review respectfully. The maintainer decides whether and when a contribution is accepted.</p></div>
+            <h2 id="contribution-route">Understand where your work goes</h2>
+            <figure class="workflow-figure"><img src="assets/images/workflows/contribution-route.svg" width="800" height="430" alt="Fork upstream to your account, clone locally, work on a branch, push to your fork, and open a pull request back to upstream for review." loading="lazy" /><figcaption>Origin normally points to your fork. Upstream points to the original project. These names are conventions, not special Git servers. <a class="lesson-link" href="assets/images/workflows/contribution-route.svg" target="_blank" rel="noopener">Open full-size diagram</a>.</figcaption></figure>
+            <h2 id="contribution-prepare">1. Agree on the task and prepare</h2>
+            <p>Read the contribution rules, check that the task is available, and discuss substantial changes before coding. Fork the repository using GitHub's <strong>Fork</strong> button. Copy your fork's actual clone URL and use it below; replace all uppercase placeholders.</p>
+            <div class="diagram"><pre>git clone https://github.com/YOUR_USERNAME/REPOSITORY.git
+cd REPOSITORY
+git remote add upstream https://github.com/ORIGINAL_OWNER/REPOSITORY.git
+git remote -v
+git checkout -b fix/clear-error-message</pre></div>
+            <p>Install dependencies and run the baseline checks from <code>CONTRIBUTING.md</code> before editing. If the baseline already fails, record it and ask whether it is known. Do not add unrelated repairs to your PR.</p>
+            <h2 id="contribution-change">2. Make the smallest useful improvement</h2>
+            <ol>
+              <li>Reproduce the issue and identify the relevant code or document.</li>
+              <li>Make the agreed change. Match the surrounding style rather than rewriting nearby files.</li>
+              <li>Add or update tests when behavior changes. For documentation, verify commands, links, and the rendered page.</li>
+              <li>Run the required checks and inspect your diff for accidental changes or private data.</li>
+            </ol>
+            <div class="diagram"><pre>git status
+git diff
+# Replace these example paths with the files you intentionally changed.
+git add src/form.js tests/form.test.js
+git commit -m "Show a clear error for empty mission titles"
+git push -u origin fix/clear-error-message</pre></div>
+            <h2 id="contribution-pr">3. Open the pull request to the right place</h2>
+            <p>On GitHub, compare <strong>your fork's feature branch</strong> against the <strong>original repository's requested base branch</strong>. It is often main, but check the guidelines. Explain the issue, your solution, and test results using the PR template. Use a closing keyword only if the PR fully resolves the issue and targets the default branch.</p>
+            <h2 id="contribution-review">4. Respond to review and finish</h2>
+            <p>Ask for clarification if feedback is unclear. Edit locally, rerun checks, commit, and push to the <strong>same branch</strong>; the existing PR updates automatically. Do not create a new PR for each review comment. If the approach is declined, ask what would help and accept the decision without arguing or spamming.</p>
+            <p>After merge, thank reviewers and remove the finished branch when safe. Before starting a new task, update your fork on GitHub with <strong>Sync fork</strong>, then update your clean local default branch. The following assumes the project's default branch is main:</p>
+            <div class="diagram"><pre>git checkout main
+git pull origin main
+git checkout -b docs/next-small-improvement</pre></div>
+            <p>If Sync fork reports conflicts, do not discard your changes to force a sync. Ask for help comparing the histories. You can also follow the project's documented upstream synchronization procedure.</p>
+            <h2 id="contribution-problems">Common contribution problems</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>Resolve it safely</th></tr></thead><tbody>
+              <tr><td>“Permission denied” when pushing.</td><td>Check <code>git remote -v</code>. Push to your fork, not upstream. Verify your GitHub authentication; never share a token in comments.</td></tr>
+              <tr><td>The PR shows unrelated commits.</td><td>Check its base and compare branches. Ask a maintainer about a clean branch from the correct base rather than force-pushing shared history.</td></tr>
+              <tr><td>The PR has a merge conflict.</td><td>Update using the project's merge or rebase policy. Coordinate with the author of overlapping changes, resolve intentionally, and rerun tests. Ask for help instead of accepting all of one side blindly.</td></tr>
+              <tr><td>No review arrives immediately.</td><td>Maintainers may be volunteers. Follow their response guidance, send one polite follow-up after a reasonable interval, and work elsewhere while waiting.</td></tr>
+              <tr><td>You need to stop contributing.</td><td>Leave a short status note and describe what is complete so someone can take over.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> rehearse the fork-to-PR flow with a friend or your own learning repository before contributing to a busy public project. Practice a review update on the same PR.</p></div>
+            <p class="lesson-sources">Official reference: <a href="https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project">Contributing to a project</a>.</p>
+            <div class="page-nav"></div>
+          </div>
+
+          <div class="page" id="page-maintaining-open-source">
+            <p class="lesson-kicker">Open source / 3</p>
+            <h1>Grow into a Maintainer</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> progress from completing small tasks to helping a project remain useful, welcoming, and sustainable.</p></div>
+            <h2 id="maintainer-progress">A practical progression</h2>
+            <ol>
+              <li><strong>New contributor:</strong> learn setup, improve a small document, reproduce a bug, or add a targeted test.</li>
+              <li><strong>Regular contributor:</strong> own a small feature, explain trade-offs, review familiar areas, and help others reproduce issues.</li>
+              <li><strong>Experienced contributor:</strong> discuss designs before implementation, investigate performance or compatibility, plan migrations, and mentor newcomers.</li>
+              <li><strong>Maintainer:</strong> decide scope, manage releases and access, establish contribution expectations, and protect the project's long-term health.</li>
+            </ol>
+            <p>Permissions come from trust and the project's governance, not a fixed contribution count. Reviewing a design or reducing maintenance work can be more valuable than adding another feature.</p>
+            <h2 id="maintainer-launch">If you are open-sourcing your own project</h2>
+            <ol>
+              <li>Confirm you have permission to publish the code, data, images, and dependencies. Remove sensitive material and check history, not just current files.</li>
+              <li>Choose an appropriate license with the owners. Explain the project's purpose, maturity, supported use cases, and limitations.</li>
+              <li>Provide setup instructions, a contribution guide, conduct rules, and a private security reporting channel.</li>
+              <li>Open a small number of genuinely useful, scoped issues with acceptance criteria and relevant file hints.</li>
+              <li>Document how decisions, reviews, releases, and maintainer access work. Be honest about response times and available support.</li>
+            </ol>
+            <h2 id="maintainer-routine">Keep maintenance manageable</h2>
+            <p>Review new issues regularly, request missing information, and close duplicates kindly. Explain rejected proposals so people understand the scope. Use milestones for realistic delivery goals, not promises made under pressure. Keep review ownership clear and record important design decisions in the repository.</p>
+            <p>For larger changes, start with a design issue: problem, alternatives, compatibility, risks, and a migration or rollback plan. Build in small steps with tests. Do not surprise maintainers with a huge unsolicited rewrite.</p>
+            <h2 id="maintainer-problems">People and maintenance problems</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>Resolution</th></tr></thead><tbody>
+              <tr><td>Low-quality or generated PRs overwhelm reviewers.</td><td>Require contributors to explain and test their changes. Publish an AI-use policy if needed, close unsuitable submissions politely, and prioritize meaningful work over counts.</td></tr>
+              <tr><td>A contributor insists their feature must be merged.</td><td>Explain the technical or scope decision, link project guidance, and offer a smaller alternative when appropriate. Enforce conduct rules if needed.</td></tr>
+              <tr><td>Only one maintainer knows the release process.</td><td>Document it, pair on a release, and grant carefully scoped access to trusted maintainers.</td></tr>
+              <tr><td>Maintainers are burning out.</td><td>Reduce scope, pause new features, set support boundaries, and seek co-maintainers. Archive responsibly if maintenance cannot continue.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> write a one-page contribution guide and turn one large idea into three independently reviewable issues.</p></div>
+            <p class="lesson-sources">Further reading: <a href="https://opensource.guide/best-practices/">Best practices for maintainers</a> · <a href="https://opensource.guide/leadership-and-governance/">Leadership and governance</a>.</p>
+            <div class="page-nav"></div>
+          </div>
+
+          <div class="page" id="page-hacktoberfest">
+            <p class="lesson-kicker">Open source / 4</p>
+            <h1>Prepare for Hacktoberfest</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> prepare to participate thoughtfully, without confusing past event rules with the current format.</p></div>
+            <h2 id="hacktoberfest-current">Check the current event first</h2>
+            <div class="info-box"><h4>Format changes matter</h4><p>Checked November 3, 2026: the official Hacktoberfest site says its 2026 event focused on building with open-weight models and open source AI at in-person and online Fests, rather than counting pull requests. It ended October 31. Older guides about fixed PR targets, labels, rewards, or registration rules may not apply. Check the official site for the next announced edition.</p></div>
+            <p>Do not assume an event called Hacktoberfest always follows the same contribution-counting model. A normal open source contribution remains useful even when it is not eligible for an event or reward.</p>
+            <h2 id="hacktoberfest-before">Prepare before the event</h2>
+            <ol>
+              <li><strong>Read official details:</strong> confirm dates, registration, eligibility, participation format, conduct, and submission requirements for that edition.</li>
+              <li><strong>Practice Git:</strong> clone, branch, commit, push, open a PR, and respond to review in a learning repository.</li>
+              <li><strong>Choose a direction:</strong> find a relevant community, event, or project. Check its rules and required skills, including any current AI or data-use requirements.</li>
+              <li><strong>Set up early where allowed:</strong> verify accounts and tools. Do not complete restricted competition work before the permitted start time.</li>
+              <li><strong>Set a learning goal:</strong> understand one project, help one user, or finish one useful improvement rather than chase a number.</li>
+            </ol>
+            <h2 id="hacktoberfest-during">During the event</h2>
+            <p>Follow the current official participation path. If it involves building at a Fest, read the challenge and judging criteria. If you contribute to a repository, follow its normal issue and PR process. Keep notes on what you built, tested, learned, and credited. Ask for help early and leave time for review or submission.</p>
+            <p>Do not spam maintainers with cosmetic changes they did not ask for, demand acceptance for a reward, or submit generated code you cannot explain. Respect licenses, privacy, and community AI policies.</p>
+            <h2 id="hacktoberfest-problems">Problems and responsible responses</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>Response</th></tr></thead><tbody>
+              <tr><td>A tutorial describes different rules.</td><td>Use the current official event page. Note the year of any advice before acting on it.</td></tr>
+              <tr><td>Your work does not qualify for event recognition.</td><td>Check the official requirements and support process. Do not pressure a maintainer to alter their decision.</td></tr>
+              <tr><td>You cannot finish a contribution in time.</td><td>Communicate, document progress, and hand it over or continue afterward. Useful work matters beyond an event deadline.</td></tr>
+              <tr><td>You missed this year's event.</td><td>Practice and contribute year-round. Follow official announcements rather than guessing next year's format.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> make a preparation checklist with links to official event rules, one community or project, required tools, and one realistic learning goal.</p></div>
+            <p class="lesson-sources">Current event information: <a href="https://hacktoberfest.com/">Official Hacktoberfest website</a>. Recheck each edition; this lesson does not guarantee eligibility or rewards.</p>
+            <div class="page-nav"></div>
+          </div>
+
+          <!-- PRACTICAL PATH: HACKATHONS -->
+          <div class="page" id="page-hackathon-plan">
+            <p class="lesson-kicker">Hackathons / 1</p>
+            <h1>Hackathon Setup &amp; Priorities</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> deliver one convincing user journey with a coordinated team, rather than a long list of unfinished features.</p></div>
+            <h2 id="hackathon-rules">Start with rules, not code</h2>
+            <p>Read the event's allowed team size, build window, reuse policy, AI/tool policy, required technologies, judging criteria, and submission deadline with its time zone. Confirm whether the repository must be public and whether pre-existing code must be disclosed. A good implementation can still be ineligible if it ignores the rules.</p>
+            <h2 id="hackathon-mvp">Choose a minimum viable demo</h2>
+            <p>An MVP, or minimum viable product, is the smallest version that proves the core value. For our Mission Tracker, the demo could be: create a mission, assign it, and mark it complete. Real-time chat, advanced analytics, and elaborate profile settings can wait.</p>
+            <ol>
+              <li>Choose one user and one specific problem.</li>
+              <li>Sketch the complete user journey in a few steps.</li>
+              <li>Write <strong>Must have</strong>, <strong>Should have</strong>, and <strong>Could have</strong> lists. Only the first list is promised.</li>
+              <li>Identify the riskiest dependency, such as an unfamiliar API, and test it early.</li>
+              <li>Decide how you will demonstrate the solution and what success looks like.</li>
+            </ol>
+            <h2 id="hackathon-repo">Set up the team repository</h2>
+            <ul>
+              <li>Create or use a repository permitted by the event. Invite collaborators and verify everyone can access it.</li>
+              <li>Add a short README with the goal, setup instructions, roles, and chosen tools. Include placeholders for required environment variables.</li>
+              <li>Create a small Project board and concrete issues. Assign one owner per task and identify a reviewer or integration partner.</li>
+              <li>Agree on short-lived branches and small PRs. Decide who handles release and submission.</li>
+              <li>Get a basic runnable version working early, then verify it on another machine.</li>
+            </ul>
+            <h2 id="hackathon-time">An example schedule</h2>
+            <figure class="workflow-figure"><img src="assets/images/workflows/hackathon-timeline.svg" width="800" height="340" alt="Example 24-hour schedule: plan, build an end-to-end slice, develop with frequent integration, stabilize, then rehearse and submit." loading="lazy" /><figcaption>Adapt the schedule to your event. Plan breaks and rest, and leave a real submission buffer. <a class="lesson-link" href="assets/images/workflows/hackathon-timeline.svg" target="_blank" rel="noopener">Open full-size diagram</a>.</figcaption></figure>
+            <h2 id="hackathon-plan-problems">Planning problems and fixes</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>Resolve it</th></tr></thead><tbody>
+              <tr><td>The idea is too large.</td><td>Choose the one flow that demonstrates value. Move optional work out of the MVP and update the board.</td></tr>
+              <tr><td>The team argues about technology.</td><td>Time-box the choice and favor tools the team can use reliably within the deadline.</td></tr>
+              <tr><td>An external API does not work.</td><td>Investigate early. If the rules permit, use clearly disclosed sample data or a mock; never pretend a simulation is a live integration.</td></tr>
+              <tr><td>Setup consumes most of the event.</td><td>Reduce dependencies, pair with the blocked teammate, and verify a minimal working path before adding features.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> write a three-step demo and a Must/Should/Could list. Estimate the essential work and reserve time for integration, testing, rest, and submission.</p></div>
+            <div class="page-nav"></div>
+          </div>
+
+          <div class="page" id="page-hackathon-team">
+            <p class="lesson-kicker">Hackathons / 2</p>
+            <h1>Collaborate Under Pressure</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> keep work visible and integrate continuously, so the first complete application does not appear five minutes before judging.</p></div>
+            <h2 id="hackathon-split">Divide by outcomes, not vague roles</h2>
+            <p>“Build the backend” is too broad. “Create the mission endpoint with a documented request and response” is a reviewable task. Agree on shared data shapes and interface names before working separately. Give tasks an owner, an expected result, and a way to test them.</p>
+            <div class="lesson-table"><table><thead><tr><th>Issue</th><th>Owner</th><th>Completion check</th></tr></thead><tbody>
+              <tr><td>Create a mission form</td><td>Sakura</td><td>Submits a valid title and shows a helpful error.</td></tr>
+              <tr><td>Save and list missions</td><td>Sasuke</td><td>Agreed example request returns the expected data.</td></tr>
+              <tr><td>Integrate and verify the demo</td><td>Naruto</td><td>A new user completes the full flow on the demo environment.</td></tr>
+            </tbody></table></div>
+            <h2 id="hackathon-integrate">Use a small collaboration loop</h2>
+            <ol>
+              <li>Claim a ready issue and announce which files or interfaces you expect to change.</li>
+              <li>Start a branch from an updated, clean main. Open a draft PR early if others depend on the work.</li>
+              <li>Commit coherent steps. Do not commit passwords, personal data, or generated dependency folders.</li>
+              <li>Ask for a quick review of the focused diff and the actual behavior.</li>
+              <li>Merge when the agreed checks pass, then have teammates update before continuing.</li>
+              <li>Verify the integrated app, not just each person's isolated component.</li>
+            </ol>
+            <h2 id="hackathon-checkin">Check in briefly and unblock fast</h2>
+            <p>At an interval that fits your event, each person states: “Done, next, blocked.” A blocker should include what was tried and what help is needed. Move blocked work out of the active path when possible. Pair on difficult integration rather than letting someone struggle alone for hours.</p>
+            <p>Write decisions in the issue or README so absent teammates can catch up. Keep the board honest. If the implementation changes an interface, notify every person depending on it before merging.</p>
+            <h2 id="hackathon-team-problems">When teamwork gets messy</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>Resolve it</th><th>Prevent it</th></tr></thead><tbody>
+              <tr><td>Two branches conflict in the same file.</td><td>Pair, understand both intended changes, resolve the markers, and test the combined result.</td><td>Split ownership by small tasks and coordinate shared files.</td></tr>
+              <tr><td>The UI and API expect different data.</td><td>Agree on one request/response example and update both sides together.</td><td>Document interfaces before parallel implementation.</td></tr>
+              <tr><td>A teammate is overwhelmed or unavailable.</td><td>Reduce scope, pair, or reassign with a clear handover.</td><td>Keep tasks small and progress visible. Plan breaks and backup ownership.</td></tr>
+              <tr><td>Main breaks shortly before the demo.</td><td>Stop new merges. Restore the last working version through the agreed recovery process, then verify it.</td><td>Integrate early and identify a known-good version.</td></tr>
+              <tr><td>People bypass every check to save time.</td><td>Use a short, agreed emergency review path rather than silently disabling safeguards.</td><td>Keep checks fast and scope small.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Try it:</strong> with a partner, build two small connected changes on separate branches. Agree on the interface first, review each other's work, and verify the combined result.</p></div>
+            <div class="page-nav"></div>
+          </div>
+
+          <div class="page" id="page-hackathon-submit">
+            <p class="lesson-kicker">Hackathons / 3</p>
+            <h1>Demo &amp; Judge-Ready Repository</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> let a judge understand the problem, see a working solution, and verify what your team actually built.</p></div>
+            <h2 id="submission-readme">Make the README an entry point</h2>
+            <ul>
+              <li><strong>Problem and audience:</strong> one clear paragraph describing who benefits.</li>
+              <li><strong>Solution:</strong> the core user journey, a screenshot, and a link to a live demo if required and available.</li>
+              <li><strong>Run it:</strong> supported runtime, installation, placeholder configuration, startup, and test steps.</li>
+              <li><strong>Architecture:</strong> a small diagram or explanation of the main components and data flow.</li>
+              <li><strong>Honest scope:</strong> what works, what uses mock data, known limitations, and realistic next steps.</li>
+              <li><strong>Team and credits:</strong> contributions, permitted reused components, assets, licenses, and AI/tool disclosures required by the event.</li>
+            </ul>
+            <p>A polished README is useful evidence, not a substitute for a working product. Avoid inflated claims such as “production ready” when authentication, persistence, accessibility, or security remain incomplete.</p>
+            <h2 id="submission-demo">Rehearse one reliable story</h2>
+            <ol>
+              <li>Introduce the user and problem briefly.</li>
+              <li>Demonstrate the core workflow with safe sample data.</li>
+              <li>Explain the important technical choice and what your team built during the event.</li>
+              <li>State limitations honestly and end with the value delivered.</li>
+            </ol>
+            <p>Fit the actual time limit. Assign a presenter and a backup. If permitted, prepare a short recording and screenshots in case Wi-Fi or an external service fails. Clearly identify a recording as a recording.</p>
+            <h2 id="submission-checklist">Check before submitting</h2>
+            <ul class="lesson-checklist">
+              <li>The submission follows the event's rules and required fields.</li>
+              <li>Repository, demo, and video links work in a logged-out browser or with the judge's documented access.</li>
+              <li>Setup works from a fresh clone and the essential user flow is tested.</li>
+              <li>The submitted commit or tag is recorded when the event requests it.</li>
+              <li>No credentials, private data, or unlicensed assets are exposed.</li>
+              <li>Any demo account is limited to safe sample data and shared only as allowed.</li>
+              <li>The team submits early enough to fix upload or permission problems and verifies the confirmation.</li>
+            </ul>
+            <h2 id="submission-problems">Last-minute problems</h2>
+            <div class="lesson-table"><table><thead><tr><th>Problem</th><th>Resolution</th></tr></thead><tbody>
+              <tr><td>The live demo fails.</td><td>Use the permitted backup, explain the failure honestly, and show the verified flow. Do not make untested edits during judging.</td></tr>
+              <tr><td>The judge cannot open the repository.</td><td>Fix visibility or access according to the event's rules. Recheck all links using the same access level.</td></tr>
+              <tr><td>A final feature is unfinished.</td><td>Leave it out of the promised demo and disclose the limitation. Preserve the working path instead.</td></tr>
+              <tr><td>The deadline or upload is unclear.</td><td>Check the official time zone, ask organizers early, submit with a buffer, and keep the confirmation.</td></tr>
+            </tbody></table></div>
+            <h2 id="submission-after">After the event</h2>
+            <p>Thank teammates, document lessons, and decide whether to continue. Remove temporary public access or demo credentials, rotate any exposed secrets, and clean up paid resources. If continuing, turn prototype shortcuts into tracked issues rather than treating a hackathon demo as production software.</p>
+            <div class="lesson-task"><p><strong>Try it:</strong> ask someone unfamiliar with the project to read your README and run the demo. Fix any point where they need an explanation that the repository should provide.</p></div>
+            <div class="page-nav"></div>
+          </div>
+
+          <div class="page" id="page-workflow-practice">
+            <p class="lesson-kicker">Practice / Real-world workflows</p>
+            <h1>Real-World Problem Lab</h1>
+            <div class="lesson-goal"><p><strong>Goal:</strong> practice diagnosing problems instead of copying commands blindly. Use a disposable repository you own, or a consenting partner's learning repository. Do not create practice noise in public projects.</p></div>
+            <h2 id="lab-delivery">Lab 1: Deliver a small improvement</h2>
+            <ol>
+              <li>Create a tiny page or document with one deliberate mistake.</li>
+              <li>Open an issue with reproduction steps and acceptance criteria.</li>
+              <li>Add it to a Project and milestone. Assign an owner and choose a reviewer.</li>
+              <li>Fix it on a branch, verify the result, and open a PR with <code>Closes #ISSUE_NUMBER</code>, replacing the placeholder with the real number.</li>
+              <li>Have your partner request one reasonable improvement. Push an update to the same branch.</li>
+              <li>Merge into the default branch and inspect the issue, Project status, and milestone. Note what updated automatically.</li>
+              <li>Write release notes and verify the delivered result. Explain the difference between merged and deployed.</li>
+            </ol>
+            <h2 id="lab-conflict">Lab 2: Resolve a collaboration conflict</h2>
+            <p>In a disposable repository, have two people branch from the same commit and change the same sentence differently. Merge one PR, then inspect the second PR's conflict. Discuss the intended combined text, resolve it, and verify the rendered result. Success means preserving the agreed behavior, not merely removing conflict markers.</p>
+            <h2 id="lab-recovery">Lab 3: Recover without rewriting shared history</h2>
+            <p>Make an ordinary, non-merge commit with a harmless mistake. Identify its hash, revert it on a recovery branch, and propose the revert through a PR. Inspect the new commit in history. Explain why this does not recover deleted database data or revoke a leaked secret.</p>
+            <h2 id="lab-diagnose">A quick troubleshooting habit</h2>
+            <ol>
+              <li><strong>Observe:</strong> what exactly failed, and what did you expect?</li>
+              <li><strong>Scope:</strong> is it local Git, authentication, GitHub permissions, checks, or deployment?</li>
+              <li><strong>Collect:</strong> read <code>git status</code>, the relevant diff, PR message, or sanitized logs.</li>
+              <li><strong>Choose safely:</strong> make the smallest reversible change. Ask before discarding work or altering shared history.</li>
+              <li><strong>Verify:</strong> repeat the original failing steps and record the outcome.</li>
+              <li><strong>Prevent:</strong> add a test, clarify documentation, or improve ownership.</li>
+            </ol>
+            <h2 id="lab-reference">Common symptoms and first checks</h2>
+            <div class="lesson-table"><table><thead><tr><th>Symptom</th><th>First safe step</th></tr></thead><tbody>
+              <tr><td>“Local changes would be overwritten.”</td><td>Read git status and inspect your diff. Save intentional work in an appropriate commit or stash before switching; do not discard it just to silence the error.</td></tr>
+              <tr><td>Push rejected as non-fast-forward.</td><td>Fetch and inspect the remote updates. Coordinate with teammates and integrate using the repository's policy. Do not immediately force-push.</td></tr>
+              <tr><td>Wrong files appear in the PR.</td><td>Inspect the PR base and changed files. Remove unintended changes deliberately and review before committing again.</td></tr>
+              <tr><td>An issue did not close.</td><td>Check the closing keyword in the PR description, the correct issue number, and whether the PR merged into the default branch.</td></tr>
+              <tr><td>A milestone is complete but users still see the bug.</td><td>Check the actual deployed version and reproduce the user's steps. Closed issue counts do not prove production readiness.</td></tr>
+            </tbody></table></div>
+            <div class="lesson-task"><p><strong>Check your understanding:</strong> explain one problem you encountered, the evidence you used to diagnose it, your safe resolution, and one change that would prevent it next time. Ask a partner to follow your explanation.</p></div>
+            <div class="success-box"><h4>Ready for a real team</h4><p>You can explain a problem, organize work, propose a focused change, handle review, verify delivery, and recover responsibly. Keep the workflow as small as your team needs, and improve it when real problems reveal a gap.</p></div>
+            <div class="page-nav"></div>
+          </div>
+
           <!-- PAGE: CHEATSHEET -->
           <div class="page" id="page-cheatsheet">
             <h1>Git Command Cheatsheet</h1>
@@ -10633,6 +11271,20 @@ feature:                  D' --- E'
         forking: "page-forking",
         stash: "page-stash",
         rebase: "page-rebase",
+        "production-workflow": "page-production-workflow",
+        issues: "page-issues",
+        "projects-milestones": "page-projects-milestones",
+        "repo-structure": "page-repo-structure",
+        "reviews-checks": "page-reviews-checks",
+        "releases-recovery": "page-releases-recovery",
+        "finding-projects": "page-finding-projects",
+        "first-contribution": "page-first-contribution",
+        "maintaining-open-source": "page-maintaining-open-source",
+        hacktoberfest: "page-hacktoberfest",
+        "hackathon-plan": "page-hackathon-plan",
+        "hackathon-team": "page-hackathon-team",
+        "hackathon-submit": "page-hackathon-submit",
+        "workflow-practice": "page-workflow-practice",
         cheatsheet: "page-cheatsheet",
       };
 
@@ -11091,6 +11743,32 @@ feature:                  D' --- E'
 
       // Initialization on DOM load
       document.addEventListener("DOMContentLoaded", () => {
+        // Match the sidebar's reading order without maintaining duplicate links.
+        const readingOrder = Object.keys(pages);
+        readingOrder.forEach((name, index) => {
+          const page = document.getElementById(pages[name]);
+          const navigation = page.querySelector(".page-nav");
+          if (!navigation) return;
+          navigation.replaceChildren();
+          [index - 1, index + 1].forEach((neighborIndex) => {
+            const neighborName = readingOrder[neighborIndex];
+            if (!neighborName) return;
+            const isNext = neighborIndex > index;
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "page-nav-btn" + (isNext ? " next" : "");
+            const label = document.createElement("span");
+            label.className = "page-nav-btn-label";
+            label.textContent = isNext ? "Next lesson" : "Previous lesson";
+            const title = document.createElement("span");
+            title.className = "page-nav-btn-title";
+            title.textContent = document.getElementById(pages[neighborName]).querySelector("h1").textContent;
+            button.append(label, title);
+            button.addEventListener("click", () => showPage(neighborName));
+            navigation.appendChild(button);
+          });
+        });
+
         // Load saved theme
         const savedTheme = localStorage.getItem("theme");
         const moonIcons = document.querySelectorAll(".moon-icon");
