@@ -17,7 +17,7 @@ test("all 36 lessons have unique IDs and matching page mappings", () => {
 });
 
 test("sidebar follows the same order as page mappings", () => {
-  const sidebar = html.split('<aside class="sidebar">')[1].split("</aside>")[0];
+  const sidebar = html.split('<aside class="sidebar"')[1].split("</aside>")[0];
   const links = [...sidebar.matchAll(/showPage\('([^']+)'\)/g)]
     .map((match) => `page-${match[1]}`);
   assert.deepEqual(links, mappings);
@@ -33,6 +33,15 @@ test("every local image and stylesheet exists", () => {
 test("all authored HTML IDs are unique", () => {
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(new Set(ids).size, ids.length);
+});
+
+test("mobile drawer backdrop shares its layout and exposes expanded state", () => {
+  const layout = html.split('<div class="docs-layout-container">')[1];
+  assert.ok(layout.indexOf('class="mobile-overlay"') < layout.indexOf('<aside class="sidebar"'));
+  assert.match(html, /aria-controls="lesson-navigation"/);
+  assert.match(html, /aria-expanded="false"/);
+  assert.match(html, /sidebar\.inert = !open/);
+  assert.match(html, /addEventListener\("change", closeMobileMenu\)/);
 });
 
 test("new lessons include goals, problems, exercises, and navigation", () => {

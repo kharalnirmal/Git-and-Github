@@ -1471,7 +1471,7 @@
 
       .mobile-overlay {
         display: none;
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         right: 0;
@@ -1493,6 +1493,18 @@
       }
 
       @media (max-width: 768px) {
+        .header-container { padding: 0 12px; gap: 8px; }
+        .header-left { min-width: 0; }
+        .header-right { gap: 4px; flex-shrink: 0; }
+        .header-right .social-links,
+        .header-right .header-divider { display: none; }
+        .header-logo-btn { padding: 4px 0; gap: 6px; }
+        .logo-text-wrapper { white-space: nowrap; }
+        .logo-title { font-size: 14px; }
+        .theme-toggle-header,
+        .mobile-menu-btn { width: 44px; height: 44px; flex-shrink: 0; }
+        .mobile-menu-btn { align-items: center; }
+
         .landing-wrap {
           grid-template-columns: 1fr;
           gap: 32px;
@@ -1537,11 +1549,12 @@
         }
 
         .sidebar {
-          position: fixed;
-          top: var(--header-height);
+          position: absolute;
+          top: 0;
           left: 0;
           bottom: 0;
-          width: 280px;
+          width: min(280px, calc(100vw - 48px));
+          overscroll-behavior: contain;
           z-index: 99;
           transform: translateX(-100%);
           transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2018,7 +2031,9 @@
           <button
             class="mobile-menu-btn"
             onclick="toggleMobileMenu()"
-            aria-label="Toggle Mobile Menu"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="lesson-navigation"
           >
             <span></span>
             <span></span>
@@ -2028,13 +2043,12 @@
       </div>
     </header>
 
-    <!-- Mobile Overlay -->
-    <div class="mobile-overlay" onclick="closeMobileMenu()"></div>
-
     <!-- ===== MAIN LAYOUT CONTAINER ===== -->
     <div class="docs-layout-container">
+      <!-- Keep the backdrop in the drawer's stacking context, below its links. -->
+      <div class="mobile-overlay" onclick="closeMobileMenu()" aria-hidden="true"></div>
       <!-- LEFT SIDEBAR -->
-      <aside class="sidebar">
+      <aside class="sidebar" id="lesson-navigation" aria-label="Lesson navigation">
         <div class="sidebar-nav-container">
           <div class="nav-section">
             <div class="nav-section-title">Getting Started</div>
@@ -11391,6 +11405,7 @@ git checkout -b docs/next-small-improvement</pre></div>
       }
 
       function goHome() {
+        closeMobileMenu();
         const landing = document.getElementById("landing");
         document.body.classList.remove("docs-active");
         landing.style.display = "flex";
@@ -11408,9 +11423,14 @@ git checkout -b docs/next-small-improvement</pre></div>
         const menuBtn = document.querySelector(".mobile-menu-btn");
         const overlay = document.querySelector(".mobile-overlay");
 
-        sidebar.classList.toggle("mobile-open");
-        menuBtn.classList.toggle("active");
-        overlay.classList.toggle("active");
+        const open = !sidebar.classList.contains("mobile-open");
+        sidebar.classList.toggle("mobile-open", open);
+        menuBtn.classList.toggle("active", open);
+        overlay.classList.toggle("active", open);
+        menuBtn.setAttribute("aria-expanded", String(open));
+        menuBtn.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+        sidebar.inert = !open;
+        document.querySelector(".main-content").inert = open;
       }
 
       // Close mobile menu helper
@@ -11422,7 +11442,22 @@ git checkout -b docs/next-small-improvement</pre></div>
         if (sidebar) sidebar.classList.remove("mobile-open");
         if (menuBtn) menuBtn.classList.remove("active");
         if (overlay) overlay.classList.remove("active");
+        if (menuBtn) {
+          menuBtn.setAttribute("aria-expanded", "false");
+          menuBtn.setAttribute("aria-label", "Open navigation menu");
+        }
+        if (sidebar) sidebar.inert = window.matchMedia("(max-width: 768px)").matches;
+        document.querySelector(".main-content").inert = false;
       }
+
+      window.matchMedia("(max-width: 768px)").addEventListener("change", closeMobileMenu);
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && document.querySelector(".sidebar.mobile-open")) {
+          closeMobileMenu();
+          document.querySelector(".mobile-menu-btn").focus();
+        }
+      });
+      closeMobileMenu();
 
       // Theme logic with persistence
       function toggleTheme() {
