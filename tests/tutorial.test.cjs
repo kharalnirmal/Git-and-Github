@@ -83,3 +83,10 @@ test("documentation layout fits below the fixed header without outer overflow", 
   assert.match(layout, /inset: var\(--header-height\) 0 0;/);
   assert.doesNotMatch(layout, /margin-top:|100vh/);
 });
+
+test("onboarding disables scrolling and contents scrollbar is thin and themed", () => {
+  const css = fs.readFileSync(path.join(root, "assets/css/onboarding.css"), "utf8");
+  assert.match(css, /body #landing\s*\{[^}]*height: 100dvh;[^}]*overflow: hidden;/);
+  assert.match(html, /\.toc-aside::-webkit-scrollbar\s*\{ width: 5px;/);
+  assert.match(html, /body\.dark-mode \.toc-aside\s*\{[^}]*color-scheme: dark;/);
+});
