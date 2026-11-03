@@ -1,4 +1,10 @@
 /* Practical learning paths extend the original theme without a build step. */
+.page table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.page p, .page li, .page td { overflow-wrap: anywhere; }
 .lesson-kicker {
   color: var(--accent);
   font-size: 12px;

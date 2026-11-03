@@ -833,9 +833,20 @@
       /* ==================== MAIN CONTENT ==================== */
       .main-content {
         flex: 1;
+        min-width: 0;
         overflow-y: auto;
+        scrollbar-width: none;
         background-color: var(--bg-color);
         scroll-behavior: smooth;
+      }
+
+      .main-content::-webkit-scrollbar {
+        display: none;
+      }
+
+      .main-content:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: -2px;
       }
 
       .content-wrapper {
@@ -2158,7 +2169,7 @@
       </aside>
 
       <!-- MAIN CONTENT -->
-      <main class="main-content">
+      <main class="main-content" tabindex="0" aria-label="Tutorial lessons">
         <div class="content-wrapper">
           <!-- PAGE: INTRODUCTION -->
           <div class="page active" id="page-intro">
@@ -2387,7 +2398,8 @@ Problems:
               </li>
               <li>
                 Once the file downloads, run the installer (it will be named
-                something like <code>Git-2.43.0-64-bit.exe</code>)
+                something like <code>Git-VERSION-64-bit.exe</code>; VERSION is a
+                placeholder, not a version to type or search for)
               </li>
               <li>
                 Click <strong>Next</strong> on all the screens - the default
@@ -2475,7 +2487,9 @@ Problems:
 
             <p>
               If you see a version number like <code>git version 2.39.0</code>,
-              Git is already installed!
+              Git is already installed! Version numbers shown in this guide are
+              illustrative, not the latest release. Install a current supported
+              version from the official site or your operating system's package manager.
             </p>
 
             <p>
@@ -2896,6 +2910,8 @@ sudo apt install git</code></pre>
             </div>
 
             <h2 id="config-verify">Checking Your Settings</h2>
+            <p><code>--global</code> changes your user-wide defaults. Inside a particular repository, omit it to set a project-specific name or email, for example for work versus personal contributions. Check <code>git config --show-origin user.email</code> to see where the effective value comes from.</p>
+            <p>This guide uses <code>main</code> as the default branch name. To use it for new repositories, run <code>git config --global init.defaultBranch main</code>. This does not rename branches in existing repositories. After cloning, follow that repository's actual default branch name.</p>
 
             <p>To confirm everything was saved correctly, type:</p>
 
@@ -4073,8 +4089,8 @@ feature branch:           E --- F
 <span class="command">git log --oneline</span>
 
 <span class="output">a1b2c3d Add login page
-9e8f7g6 Fix score bug
-5h4i3j2 Initial commit</span></code></pre>
+9e8f7a6 Fix score bug
+5a4b3c2 Initial commit</span></code></pre>
               </div>
             </div>
 
@@ -4477,8 +4493,10 @@ node_modules/
               </tbody>
             </table>
 
-            <h2 id="gitkeep-what">What is .gitkeep?</h2>
+            <h2 id="gitignore-tracked">Files already tracked by Git</h2>
+            <div class="warning-box"><h4>Ignoring is not untracking</h4><p><code>.gitignore</code> applies to untracked files; it does not stop tracking files already committed. After inspecting the file and coordinating with teammates, <code>git rm --cached PATH_TO_FILE</code> stages its removal from Git while keeping your local copy. Replace the placeholder, add the ignore rule, and review the staged diff before committing. This does not erase earlier copies. If a credential was exposed, rotate it immediately.</p></div>
 
+            <h2 id="gitkeep-what">What is .gitkeep?</h2>
             <p>
               Git does not track empty folders. But sometimes you need to keep
               an empty folder in your repository.
@@ -4562,7 +4580,8 @@ node_modules/
               <p>
                 <code>.gitkeep</code> is not a Git feature - it is just a
                 convention. You could name the file anything, but
-                <code>.gitkeep</code> is the standard that everyone uses.
+                <code>.gitkeep</code> is a common convention, not a requirement.
+                A README explaining the folder's purpose works too.
               </p>
             </div>
 
@@ -4892,8 +4911,12 @@ node_modules/
             <div class="danger-box">
               <h4>Danger</h4>
               <p>
-                <code>git reset --hard</code> permanently deletes your changes.
-                Only use this if you are absolutely sure!
+                <code>git reset --hard</code> discards tracked working-tree and
+                staged changes and moves the branch to the selected commit.
+                Some obstructing untracked files can also be removed. Previously
+                committed work may be recoverable through the local reflog, but
+                uncommitted edits usually are not. Practice only in a disposable
+                repository; never use it to rewrite shared history.
               </p>
             </div>
 
@@ -4950,17 +4973,21 @@ node_modules/
                 <pre><code><span class="comment"># View commit history</span>
 <span class="command">git log --oneline</span>
 <span class="output">a1b2c3d Latest commit
-9e8f7g6 Previous commit
-5h4i3j2 Old commit
-1k2l3m4 Very old commit</span>
+9e8f7a6 Previous commit
+5a4b3c2 Old commit
+1a2b3c4 Very old commit</span>
 
 <span class="comment"># Go back to specific commit</span>
-<span class="command">git reset 5h4i3j2</span></code></pre>
+<span class="command">git reset 5a4b3c2</span></code></pre>
               </div>
             </div>
 
-            <h2 id="undoing-revert">Reverting a Commit (Safe Way)</h2>
+            <h3 id="undoing-inspect">Inspecting is different from resetting</h3>
+            <p>The plain <code>git reset COMMIT</code> example above moves the branch and resets the staging area, but leaves working-tree file contents in place. It is not a read-only way to inspect an old version. To look at old content without changing files, use <code>git show COMMIT:path/to/file</code>, replacing the placeholders.</p>
+            <h2 id="undoing-reflog">Recover a recently lost local commit</h2>
+            <p>If a reset or rebase moved a branch away from useful commits, stop making changes and inspect <code>git reflog</code>. Find the intended commit, then run <code>git branch rescue-work COMMIT_HASH</code> with its actual hash to create a reference without replacing your current files. Inspect it before deciding how to integrate it. Reflogs are local, expire, and are not a backup; they normally cannot restore edits that were never committed.</p>
 
+            <h2 id="undoing-revert">Reverting a Commit (Safe Way)</h2>
             <p>
               Instead of deleting history, create a NEW commit that undoes a
               previous commit. This is safer for code already pushed to GitHub.
@@ -5015,7 +5042,7 @@ node_modules/
               </div>
               <div class="code-frame-body">
                 <pre><code><span class="comment"># Safely undo a specific commit</span>
-<span class="command">git revert 9e8f7g6</span>
+<span class="command">git revert 9e8f7a6</span>
 
 <span class="comment"># Git opens editor for commit message</span>
 <span class="comment"># Save and close - a new "revert" commit is created</span></code></pre>
@@ -5418,7 +5445,7 @@ When done, merge back to main:
 <span class="command">git log --oneline</span>
 <span class="output">f3e2d1c Complete login functionality
 a9b8c7d Add login page
-5h4i3j2 (main) Previous main commit</span>
+5a4b3c2 (main) Previous main commit</span>
 
 <span class="comment"># Switch back to main - login.txt disappears!</span>
 <span class="command">git checkout main</span>
@@ -7203,7 +7230,8 @@ Naruto's Computer          GitHub.com          Sasuke's Computer
                 Enter your email address and click <strong>Continue</strong>
               </li>
               <li>
-                Create a strong password (at least 8 characters) and click
+                Create a unique password with a password manager (preferably
+                at least 15 characters), follow GitHub's current requirements, and click
                 <strong>Continue</strong>
               </li>
               <li>
@@ -7312,11 +7340,11 @@ Naruto's Computer          GitHub.com          Sasuke's Computer
 
             <div class="diagram">
               <pre>
-git log --oneline on GitHub shows:
+Illustrative commit list (not literal git log --oneline output):
 
 a1b2c3d  Sasuke Uchiha "Add login page"       2 hours ago
-9e8f7g6  Naruto Uzumaki "Initial commit"       1 day ago
-5h4i3j2  Sakura Haruno "Add database file"    2 days ago
+9e8f7a6  Naruto Uzumaki "Initial commit"       1 day ago
+5a4b3c2  Sakura Haruno "Add database file"    2 days ago
 
 The name comes from: git config --global user.name
 </pre
@@ -7325,18 +7353,19 @@ The name comes from: git config --global user.name
 
             <h3>What user.email does</h3>
             <p>
-              The email in git config must match the email you used to sign up
-              on GitHub. This is how GitHub links your commits to your GitHub
-              profile. If the emails do not match, your commits will not show up
-              on your GitHub profile graph.
+              Use an email verified on your GitHub account, or the exact GitHub
+              noreply address shown in Settings → Emails. It does not have to be
+              your original signup email. This lets GitHub attribute commits to
+              your profile; contribution-graph visibility has additional rules.
             </p>
 
             <div class="warning-box">
-              <h4>Important: Email Must Match</h4>
+              <h4>Important: Use a verified email or your GitHub noreply address</h4>
               <p>
                 Sasuke Uchiha signed up on GitHub with
-                <code>sasuke@leaf.ninja</code>. So his git config must also use
-                the same email:
+                <code>sasuke@leaf.ninja</code>. If it is verified on his account,
+                he can use it in Git. For privacy, he can instead copy his exact
+                noreply address from GitHub's email settings:
               </p>
               <div class="code-frame">
                 <div class="code-frame-header">
@@ -7390,8 +7419,10 @@ The name comes from: git config --global user.name
                 </div>
               </div>
               <p>
-                If he uses a different email in git config, his commits will
-                appear as "ghost commits" — not linked to his GitHub account.
+                An unrecognized email may prevent attribution to his account.
+                Git author settings are metadata, not login credentials, and do
+                not prove identity or grant repository access. Public commits can
+                expose their author email.
               </p>
             </div>
 
@@ -7450,6 +7481,10 @@ The name comes from: git config --global user.name
 user.email=sasuke@leaf.ninja</span></code></pre>
               </div>
             </div>
+
+            <h2 id="github-account-security">Secure Your Account</h2>
+            <p>Enable two-factor authentication in Settings → Password and authentication, and keep recovery codes somewhere safe outside this repository. Consider a passkey for phishing-resistant sign-in. Never share accounts, passwords, tokens, or private SSH keys. A GitHub login password cannot authenticate command-line Git operations over HTTPS; use a credential manager or a suitable token.</p>
+            <p class="lesson-sources">Official guidance: <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-strong-password">Strong passwords and account security</a> · <a href="https://docs.github.com/en/account-and-profile/how-tos/email-preferences/setting-your-commit-email-address">Commit email and privacy</a>.</p>
 
             <h2 id="github-account-profile">Setting Up Your Profile</h2>
 
@@ -7523,7 +7558,7 @@ user.email=sasuke@leaf.ninja</span></code></pre>
               </li>
               <li>
                 Choose <strong>Public</strong> (anyone can see) or
-                <strong>Private</strong> (only you)
+                <strong>Private</strong> (only people with authorized access)
               </li>
               <li>Do NOT check "Add a README file" (we will add it later)</li>
               <li>Click <strong>Create repository</strong></li>
@@ -7595,13 +7630,13 @@ user.email=sasuke@leaf.ninja</span></code></pre>
 <span class="command">cd school-project</span>
 
 <span class="comment"># Add GitHub as remote (replace with your URL)</span>
-<span class="command">git remote add origin https://github.com/naruto-ninja/mission-tracker.git</span>
+<span class="command">git remote add origin https://github.com/naruto-ninja/school-project.git</span>
 
 <span class="comment"># Verify the connection</span>
 <span class="command">git remote -v</span>
 
-<span class="output">origin  https://github.com/naruto-ninja/mission-tracker.git (fetch)
-origin  https://github.com/naruto-ninja/mission-tracker.git (push)</span></code></pre>
+<span class="output">origin  https://github.com/naruto-ninja/school-project.git (fetch)
+origin  https://github.com/naruto-ninja/school-project.git (push)</span></code></pre>
               </div>
             </div>
 
@@ -7671,7 +7706,7 @@ origin  https://github.com/naruto-ninja/mission-tracker.git (push)</span></code>
 <span class="output">Enumerating objects: 10, done.
 Counting objects: 100% (10/10), done.
 Writing objects: 100% (10/10), 1.2 KiB | 1.2 MiB/s, done.
-To https://github.com/naruto-uzumaki/school-project.git
+To https://github.com/naruto-ninja/school-project.git
  * [new branch]      main -> main</span></code></pre>
               </div>
             </div>
@@ -7736,7 +7771,7 @@ To https://github.com/naruto-uzumaki/school-project.git
               </div>
               <div class="code-frame-body">
                 <pre><code><span class="comment"># Clone the repository</span>
-<span class="command">git clone https://github.com/naruto-ninja/mission-tracker.git</span>
+<span class="command">git clone https://github.com/naruto-ninja/school-project.git</span>
 
 <span class="output">Cloning into 'school-project'...
 remote: Enumerating objects: 10, done.
@@ -7775,7 +7810,7 @@ Receiving objects: 100% (10/10), done.</span>
             <div class="diagram">
               <pre>
 HTTPS link:
-https://github.com/sasuke-uchiha/mission-tracker.git
+https://github.com/sasuke-uchiha/school-project.git
 
 SSH link:
 git@github.com:sasuke-uchiha/school-project.git
@@ -7801,28 +7836,28 @@ git@github.com:sasuke-uchiha/school-project.git
                 </tr>
                 <tr>
                   <td>Authentication</td>
-                  <td>Username + Personal Access Token every time</td>
-                  <td>SSH key pair — set up once, never again</td>
+                  <td>Credential manager or personal access token; not your account password</td>
+                  <td>SSH key pair, optionally protected by a passphrase</td>
                 </tr>
                 <tr>
                   <td>Ease of setup</td>
-                  <td>Easy — no setup needed</td>
-                  <td>Takes 5 minutes to set up once</td>
+                  <td>Authenticate using a credential manager or supported tool</td>
+                  <td>Create a key, register its public half, and configure an agent</td>
                 </tr>
                 <tr>
                   <td>Daily use</td>
-                  <td>Asks for credentials on every push</td>
-                  <td>Never asks again after setup</td>
+                  <td>A credential manager can securely remember authentication</td>
+                  <td>An agent can remember the unlocked key; prompts may still occur</td>
                 </tr>
                 <tr>
                   <td>Security</td>
-                  <td>Good</td>
-                  <td>Better — key-based authentication</td>
+                  <td>Secure when credentials are protected and scoped appropriately</td>
+                  <td>Secure when private keys and passphrases are protected</td>
                 </tr>
                 <tr>
                   <td>Recommended for</td>
-                  <td>Quick one-time use</td>
-                  <td>Daily development work</td>
+                  <td>Daily development, including networks that restrict SSH</td>
+                  <td>Daily development where SSH is supported</td>
                 </tr>
               </tbody>
             </table>
@@ -7830,13 +7865,16 @@ git@github.com:sasuke-uchiha/school-project.git
             <div class="success-box">
               <h4>Which One to Use?</h4>
               <p>
-                Use <strong>SSH</strong> for your daily work. You set it up once
-                and Git never asks for your password again. Every professional
-                developer uses SSH.
+                Both <strong>HTTPS</strong> and <strong>SSH</strong> are normal
+                professional choices. Follow your team's policy and choose the
+                method that works on your network.
               </p>
               <p>
-                Use <strong>HTTPS</strong> only when you are on someone else's
-                computer and do not want to set up SSH keys there.
+                With HTTPS, Git Credential Manager can handle browser-based
+                login and store credentials securely. If using a token manually,
+                prefer a fine-grained token with minimum permissions and an
+                expiry. Never embed tokens in clone URLs or commit them. Avoid
+                leaving credentials on borrowed or public computers.
               </p>
             </div>
 
@@ -7859,7 +7897,7 @@ Git says: "I have the private key"
 GitHub checks: "Does it match the public key I have?"
 GitHub says: "Yes, you are allowed in."
 
-No password needed. Ever.
+No GitHub account password is sent. A key passphrase may be requested.
 </pre
               >
             </div>
@@ -7936,8 +7974,9 @@ No password needed. Ever.
             </div>
 
             <p>
-              Terminal will ask three questions. Press
-              <strong>Enter</strong> for all three to accept defaults:
+              Terminal asks for a file location and passphrase. Accept the
+              default location only if it will not overwrite an existing key.
+              Use a strong passphrase to protect the private key:
             </p>
 
             <div class="code-frame">
@@ -7989,8 +8028,8 @@ No password needed. Ever.
               </div>
               <div class="code-frame-body">
                 <pre><code><span class="output">Enter file in which to save the key: </span><span class="comment">(press Enter)</span>
-<span class="output">Enter passphrase: </span><span class="comment">(press Enter)</span>
-<span class="output">Enter same passphrase again: </span><span class="comment">(press Enter)</span>
+<span class="output">Enter passphrase: </span><span class="comment">(enter a strong passphrase)</span>
+<span class="output">Enter same passphrase again: </span><span class="comment">(repeat it)</span>
 
 <span class="output">Your identification has been saved in /Users/sasuke/.ssh/id_ed25519
 Your public key has been saved in /Users/sasuke/.ssh/id_ed25519.pub</span></code></pre>
@@ -8009,6 +8048,7 @@ Your public key has been saved in /Users/sasuke/.ssh/id_ed25519.pub</span></code
             </ul>
 
             <h2 id="ssh-agent">Add Key to SSH Agent</h2>
+            <p>The following agent commands are for Bash, including Git Bash on Windows. PowerShell and macOS Keychain setup differ; follow GitHub's operating-system-specific instructions. The public-key display command below also works in Git Bash.</p>
 
             <div class="code-frame">
               <div class="code-frame-header">
@@ -8144,6 +8184,8 @@ Your public key has been saved in /Users/sasuke/.ssh/id_ed25519.pub</span></code
             </ol>
 
             <h2 id="ssh-test">Test the Connection</h2>
+            <p>On first connection, SSH may ask whether to trust GitHub's host key. Compare the displayed fingerprint with GitHub's official fingerprints before accepting. If a previously trusted host key unexpectedly changes, stop and investigate instead of blindly removing the warning.</p>
+            <p class="lesson-sources">Official references: <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">SSH agent setup by operating system</a> · <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints">GitHub SSH fingerprints</a> · <a href="https://docs.github.com/en/get-started/git-basics/about-remote-repositories">HTTPS and SSH authentication</a>.</p>
 
             <div class="code-frame">
               <div class="code-frame-header">
@@ -8207,7 +8249,7 @@ but GitHub does not provide shell access.</span></code></pre>
 
             <h2 id="ssh-use">Using SSH When Cloning or Adding Remote</h2>
 
-            <p>Now always use the SSH link instead of HTTPS:</p>
+            <p>If you chose SSH, use the SSH URL for that repository:</p>
 
             <div class="code-frame">
               <div class="code-frame-header">
@@ -8261,13 +8303,15 @@ but GitHub does not provide shell access.</span></code></pre>
 <span class="command">git clone git@github.com:sasuke-uchiha/school-project.git</span>
 
 <span class="comment"># Add remote using SSH</span>
-<span class="command">git remote add origin git@github.com:sasuke-uchiha/mission-tracker.git</span></code></pre>
+<span class="command">git remote add origin git@github.com:sasuke-uchiha/school-project.git</span></code></pre>
               </div>
             </div>
 
             <p>
-              From now on, every <code>git push</code> and
-              <code>git pull</code> will work without asking for a password.
+              Your configured SSH agent can reduce passphrase prompts for
+              <code>git push</code> and <code>git pull</code>. Keys may need
+              organization SSO authorization, and revoked keys or changed
+              permissions can still block access.
             </p>
 
             <h2 id="ssh-switch">Switch Existing Repo from HTTPS to SSH</h2>
@@ -8327,11 +8371,11 @@ but GitHub does not provide shell access.</span></code></pre>
               <div class="code-frame-body">
                 <pre><code><span class="comment"># Check current remote</span>
 <span class="command">git remote -v</span>
-<span class="output">origin  https://github.com/sasuke-uchiha/mission-tracker.git (fetch)
-origin  https://github.com/sasuke-uchiha/mission-tracker.git (push)</span>
+<span class="output">origin  https://github.com/sasuke-uchiha/school-project.git (fetch)
+origin  https://github.com/sasuke-uchiha/school-project.git (push)</span>
 
 <span class="comment"># Change it to SSH</span>
-<span class="command">git remote set-url origin git@github.com:sasuke-uchiha/mission-tracker.git</span>
+<span class="command">git remote set-url origin git@github.com:sasuke-uchiha/school-project.git</span>
 
 <span class="comment"># Verify</span>
 <span class="command">git remote -v</span>
@@ -8495,7 +8539,7 @@ Fast-forward
 
             <h2 id="push-pull-workflow">Daily Workflow</h2>
 
-            <p>This is the sequence every professional developer follows:</p>
+            <p>This simple example shows synchronization. In a team, use a feature branch and PR rather than pushing unfinished work directly to main. Inspect git status and your diff before staging.</p>
 
             <div class="code-frame">
               <div class="code-frame-header">
@@ -8567,9 +8611,10 @@ Fast-forward
             <div class="success-box">
               <h4>Golden Rule</h4>
               <p>
-                Always run <code>git pull</code> before you start working. This
-                keeps your local copy in sync with GitHub and prevents
-                conflicts.
+                Check <code>git status</code> before updating. Updating a clean
+                branch reduces surprises, but cannot guarantee there will be no
+                conflicts. Save intentional edits first and follow the team's
+                merge or rebase policy if histories diverge.
               </p>
             </div>
 
@@ -8635,7 +8680,7 @@ Fast-forward
               </div>
             </div>
 
-            <p><strong>git pull:</strong> Fetch + Merge in one command</p>
+            <p><strong>git pull:</strong> Fetch, then integrate according to your options and configuration. It can fast-forward, merge, rebase, or stop with a message rather than proceeding.</p>
             <div class="code-frame">
               <div class="code-frame-header">
                 <span class="code-frame-title">Terminal</span>
@@ -8685,7 +8730,7 @@ Fast-forward
               </div>
               <div class="code-frame-body">
                 <pre><code><span class="command">git pull</span>
-<span class="comment"># Same as: git fetch + git merge</span></code></pre>
+<span class="comment"># May fast-forward, merge, rebase, or stop; depends on options and configuration.</span></code></pre>
               </div>
             </div>
 
@@ -9172,7 +9217,7 @@ github.com/naruto-uzumaki/school-project
                 v
 
 Sasuke's Fork:
-github.com/sasuke-uchiha/mission-tracker   (copy in Sasuke's account)
+github.com/sasuke-uchiha/school-project   (copy in Sasuke's account)
 
                 |
            git clone
@@ -9939,7 +9984,7 @@ a1b2c3d Initial commit</span></code></pre>
                 <pre><code><span class="command">git stash list</span>
 
 <span class="output">stash@{0}: WIP on feature-login: a1b2c3d Add login
-stash@{1}: WIP on main: 9e8f7g6 Fix bug</span></code></pre>
+stash@{1}: WIP on main: 9e8f7a6 Fix bug</span></code></pre>
               </div>
             </div>
 
@@ -10079,6 +10124,9 @@ stash@{1}: WIP on main: 9e8f7g6 Fix bug</span></code></pre>
               </div>
             </div>
 
+            <h2 id="stash-untracked">New files and conflicts</h2>
+            <p>Plain <code>git stash</code> saves tracked changes, not new untracked files. Use <code>git stash push -u -m "work in progress"</code> when you also need untracked files; ignored files are still excluded. Stashes stay in this local repository and are not uploaded by git push.</p>
+            <p><code>git stash apply</code> keeps the saved entry. <code>git stash pop</code> removes it only after successful application; a conflict keeps it. Inspect <code>git status</code>, resolve the affected files, and test before dropping anything. Do not repeatedly pop a conflicting stash or run stash clear to fix a conflict. Dropping or clearing stashes can lose work.</p>
             <h2 id="stash-delete">Deleting Stashes</h2>
 
             <div class="code-frame">
@@ -10223,8 +10271,9 @@ feature:                  D' --- E'
                 <pre><code><span class="comment"># On feature branch</span>
 <span class="command">git checkout feature-login</span>
 
-<span class="comment"># Rebase onto main</span>
-<span class="command">git rebase main</span>
+<span class="comment"># Fetch current remote history, then rebase onto the updated remote-tracking branch</span>
+<span class="command">git fetch origin</span>
+<span class="command">git rebase origin/main</span>
 
 <span class="output">Successfully rebased and updated refs/heads/feature-login.</span></code></pre>
               </div>
@@ -10299,14 +10348,18 @@ feature:                  D' --- E'
                 <pre><code><span class="comment"># Sasuke's feature branch is behind main</span>
 <span class="command">git checkout feature-login</span>
 
-<span class="comment"># Update with latest main</span>
-<span class="command">git rebase main</span>
+<span class="comment"># Update with latest main from origin (assumes main is the default branch)</span>
+<span class="command">git fetch origin</span>
+<span class="command">git rebase origin/main</span>
 
 <span class="comment"># Now feature branch has latest main changes</span>
 <span class="comment"># And commits are in a clean line</span></code></pre>
               </div>
             </div>
 
+            <h2 id="rebase-conflicts">If rebase stops with a conflict</h2>
+            <p>Start with a clean working tree. During a conflict, read <code>git status</code>, resolve the affected files deliberately, stage those files, and run <code>git rebase --continue</code>. Repeat if another commit conflicts. To return to the pre-rebase state, use <code>git rebase --abort</code>. Do not use <code>--skip</code> unless you intentionally want to omit that commit's changes. Rebase creates new commit identities, so coordinate before rewriting any published branch.</p>
+            <p class="lesson-sources">Official references: <a href="https://git-scm.com/docs/git-rebase">git rebase</a> · <a href="https://git-scm.com/docs/git-stash">git stash</a> · <a href="https://git-scm.com/docs/git-reflog">git reflog</a>.</p>
             <div class="page-nav">
               <span></span>
               <span></span>
@@ -10492,6 +10545,8 @@ List commands and manual steps, plus results.
 
 ## Screenshots or risks
 Show UI changes. Mention migration or deployment concerns.</pre></div>
+            <h2 id="structure-line-endings">Avoid whole-file changes across operating systems</h2>
+            <p>Windows and Unix-style systems may use different line endings. Agree on a repository-level <code>.gitattributes</code> policy, such as <code>* text=auto</code>, and any formatter settings. Do not casually normalize every file in an unrelated feature PR. If a diff unexpectedly changes every line, inspect line endings before rewriting the content; coordinate any normalization in its own reviewed change.</p>
             <h2 id="structure-security">Keep configuration safe</h2>
             <p>Ignore local secret files before adding credentials. Commit placeholder names in <code>.env.example</code> and explain where authorized teammates get real values. Do not put production customer data in fixtures or screenshots. Give collaborators only the access they need and enable account security such as two-factor authentication.</p>
             <div class="warning-box"><h4>If a secret was committed</h4><p>Revoke or rotate it immediately, even if the repository is private. Removing it in a new commit or adding it to .gitignore does not remove earlier copies. Tell the responsible team, inspect usage, and coordinate history cleanup if needed. Never paste the secret into an issue while asking for help.</p></div>
@@ -10530,14 +10585,22 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 24
           cache: npm
       - run: npm ci
       - run: npm test</pre></div>
-            <p><code>npm ci</code> installs the locked dependency versions. <code>npm test</code> runs whatever the project defines as its test script. Use a supported runtime, review third-party actions, and follow your team's policy for pinning action versions, ideally to reviewed commit hashes.</p>
+            <p><code>npm ci</code> installs the locked dependency versions. <code>npm test</code> runs whatever the project defines as its test script. Node.js 24 is the example runtime, not a claim that it is the newest release. Use your project's supported runtime and review third-party actions. Pin reviewed action commit hashes for production where practical; readable release tags here are illustrative.</p>
+            <p class="lesson-sources">Action releases checked November 3, 2026: <a href="https://github.com/actions/checkout/releases/tag/v7.0.1">checkout v7.0.1</a> · <a href="https://github.com/actions/setup-node/releases/tag/v7.1.0">setup-node v7.1.0</a>. Check release notes and runner requirements before updating; self-hosted runners may need an upgrade.</p>
+            <h2 id="reviews-merge-methods">Choose the merge method deliberately</h2>
+            <ul>
+              <li><strong>Merge commit:</strong> preserves branch commits and records their integration.</li>
+              <li><strong>Squash and merge:</strong> combines a PR into one new commit on the base branch. Useful for small, focused changes with noisy intermediate commits.</li>
+              <li><strong>Rebase and merge:</strong> replays PR commits onto the base without a merge commit, creating new commit identities.</li>
+            </ul>
+            <p>Follow the repository's policy and inspect the final diff before merging. After a squash merge, local <code>git branch -d</code> may refuse because the original branch commits are not ancestors of main. Check the merged PR and any unique local work before deciding whether a local branch can be removed; do not blindly force-delete it.</p>
             <h2 id="reviews-protect">Protect the stable branch</h2>
             <p>With repository admin permission, configure a branch ruleset or branch protection for the default branch. Require a pull request, appropriate approval, and the relevant passing checks. Avoid allowing force pushes to shared stable branches. Available controls depend on repository visibility and the GitHub plan.</p>
             <p>Start checks successfully before marking them required, so you know their actual names. For a solo learning repository, a second reviewer may be unavailable; choose rules you can realistically follow. In a team, agree who can merge and how emergency changes are authorized.</p>
@@ -10575,6 +10638,10 @@ jobs:
               <li>Run a <strong>smoke test</strong>: a quick check of essential behavior, such as opening the app and creating a valid mission. Watch errors and support feedback.</li>
             </ol>
             <p>Many projects use <code>MAJOR.MINOR.PATCH</code> version numbers. A patch fixes compatible behavior, a minor version adds compatible functionality, and a major version signals incompatible changes. Follow the project's actual versioning policy; early pre-1.0 projects may have less stable interfaces.</p>
+            <h2 id="release-static-pages">A first deployment for a static website</h2>
+            <p>For a plain HTML/CSS/JavaScript site like this tutorial, GitHub Pages is one hosting option. With permission, open repository Settings → Pages, choose Deploy from a branch when available, select the intended branch and root folder, and save. Check the Pages build/deployment result and open the published URL. Plan and repository visibility affect availability; frameworks that require a build may need a Pages Actions workflow instead.</p>
+            <p>Test relative asset paths at the published repository URL, not just localhost. GitHub Pages serves static files, not a private server or database. Never put server secrets in client-side JavaScript. A missing image after deployment often means a filename-case mismatch or a path that incorrectly assumes the site lives at the domain root.</p>
+            <p class="lesson-sources">Official reference: <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">Configure a GitHub Pages publishing source</a>.</p>
             <h2 id="release-incident">When production breaks</h2>
             <ol>
               <li><strong>Assess:</strong> identify affected users and the failing journey. Notify the team and name one incident coordinator.</li>

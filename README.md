@@ -42,6 +42,12 @@ The tutorial remains a single-page static site. Its sections are grouped in the 
 
 ## Content checks
 
+### Content review: November 3, 2026
+
+Reviewed authentication guidance against GitHub documentation, Git recovery and synchronization against Git manuals, the Hacktoberfest format against its official website, and Actions versions against their official releases. The CI example references checkout v7.0.1 and setup-node v7.1.0. Recheck these sources when using version-sensitive instructions; this is a dated review, not a guarantee that every external detail will remain current.
+
+The review also adds account security and email privacy, SSH host verification, stash/rebase recovery, reflog limitations, merge-method trade-offs, cross-platform line endings, and static-site deployment. The center reading pane's scrollbar is hidden without disabling scrolling or keyboard access. Wide tables scroll within their own area on small screens.
+
 With Node.js installed, run `node --test tests/tutorial.test.cjs` to check lesson mappings, sidebar order, local assets, unique IDs, and the required practical lesson sections.
 
 Created by [Nirmal Kharal](https://github.com/kharalnirmal).

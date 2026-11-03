@@ -55,3 +55,23 @@ test("landing copy has no em dash and inline JavaScript parses", () => {
     assert.doesNotThrow(() => new Function(script));
   }
 });
+
+test("content review covers essential security and recovery gaps", () => {
+  for (const id of [
+    "github-account-security", "gitignore-tracked", "undoing-reflog",
+    "stash-untracked", "rebase-conflicts", "structure-line-endings",
+    "reviews-merge-methods", "release-static-pages",
+  ]) {
+    assert.ok(html.includes(`id="${id}"`), `Missing section: ${id}`);
+  }
+  assert.doesNotMatch(html, /9e8f7g6|5h4i3j2|1k2l3m4/);
+  assert.doesNotMatch(html, /Every professional\s+developer uses SSH|No password needed\. Ever\./);
+  assert.match(html, /actions\/checkout@v7\.0\.1/);
+  assert.match(html, /actions\/setup-node@v7\.1\.0/);
+});
+
+test("center pane remains scrollable and keyboard-accessible without a scrollbar", () => {
+  assert.match(html, /\.main-content\s*\{[^}]*overflow-y: auto;[^}]*scrollbar-width: none;/);
+  assert.match(html, /\.main-content::-webkit-scrollbar\s*\{\s*display: none;/);
+  assert.match(html, /<main class="main-content" tabindex="0" aria-label="Tutorial lessons">/);
+});
